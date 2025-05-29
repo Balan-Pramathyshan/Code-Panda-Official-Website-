@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Created by Code Panda -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Panda</title>
+    <link rel="shortcut icon" href="Round CodePanda.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .glass-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+        }
+
+        .product-card {
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 0 20px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .glow-border {
+            position: relative;
+        }
+
+        .glow-border::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 0.5rem;
+            padding: 2px;
+            background: linear-gradient(45deg, var(--accent), #8b5cf6);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% {
+                transform: translate(0, 0px);
+            }
+
+            50% {
+                transform: translate(0, 15px);
+            }
+
+            100% {
+                transform: translate(0, -0px);
+            }
+        }
+
+        .tilt {
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+        }
+
+        .tilt:hover {
+            transform: rotateY(10deg) rotateX(10deg);
+        }
+
+        .card-flip {
+            perspective: 1000px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+
+        .card-flip:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front,
+        .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+        }
+
+        .fade-slide-up {
+            animation: fadeSlideUp 1s ease-out both;
+        }
+
+        @keyframes fadeSlideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.6s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+        }
+
+        .map-pin {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px) scale(1.1);
+            color: var(--accent);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 4px;
+        }
+
+        /* 3D Card Effect */
+        .card-3d {
+            transform-style: preserve-3d;
+            transition: all 0.5s ease;
+        }
+
+        .card-3d:hover {
+            transform: rotateY(10deg) rotateX(5deg) translateY(-10px);
+        }
+
+        /* Gradient Text */
+        .gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero-content {
+                padding-top: 6rem;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(1, minmax(0, 1fr));
+            }
+
+            .timeline-item {
+                flex-direction: column;
+            }
+
+            .timeline-line {
+                display: none;
+            }
+        }
+
+        /* Base styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header,
+        nav,
+        main,
+        footer {
+            padding: 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .contact-container {
+                padding: 1rem;
+            }
+
+            .contact-container h3 {
+                text-align: center;
+                font-size: 1.5rem;
+            }
+
+            .contact-container p,
+            .contact-container h4 {
+                text-align: center;
+            }
+
+            .contact-container .flex {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 639px) {
+
+            /* Override spacing or alignment for better mobile UX */
+            .contact-section {
+                padding: 1rem;
+            }
+
+            .contact-section h3,
+            .contact-section h4,
+            .contact-section p {
+                text-align: center;
+            }
+
+            .contact-section .flex {
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+            }
+
+            .social-icon {
+                margin-bottom: 0.75rem;
+            }
+
+            .text-justify {
+                text-align: justify;
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen">
+    <!-- Floating Transparent Header -->
+    <nav
+        class="fixed top-4 left-1/2 transform -translate-x-1/2 w-[95%] z-50 bg-white/10 backdrop-blur-lg shadow-xl rounded-xl transition-all duration-500 ease-in-out hover:scale-[1.01] border border-white/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <span class="text-2xl font-bold text-white font-orbitron">
+                            <span class="text-accent">Code</span> Panda
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home"
+                            class="text-white hover:text-accent px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Home</a>
+                        <a href="#about"
+                            class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">About</a>
+                        <a href="#products"
+                            class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Products</a>
+                        <a href="#contact"
+                            class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Contact</a>
+                        
+                            <button
+                                class="ml-4 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-md text-sm font-medium hover:opacity-90 transition-opacity duration-300">
+                                <a href="https://www.youtube.com/@CodePanda_Code">Subscribe</a>
+                            </button>
+                        
+                    </div>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-toggle" class="text-gray-300 hover:text-white focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by Default) -->
+        <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 space-y-2">
+            <a href="#home"
+                class="block text-white px-3 py-2 rounded-md text-sm font-medium bg-white/10 hover:bg-white/20">Home</a>
+            <a href="#about"
+                class="block text-white px-3 py-2 rounded-md text-sm font-medium bg-white/10 hover:bg-white/20">About</a>
+            <a href="#products"
+                class="block text-white px-3 py-2 rounded-md text-sm font-medium bg-white/10 hover:bg-white/20">Products</a>
+            <a href="#contact"
+                class="block text-white px-3 py-2 rounded-md text-sm font-medium bg-white/10 hover:bg-white/20">Contact</a>
+            <button
+                class="w-full text-center px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-md text-sm font-medium hover:opacity-90">
+                <a href="https://www.youtube.com/@CodePanda_Code">Subscribe </a>
+            </button>
+        </div>
+    </nav>
+
+
+    <!-- Body padding to avoid header overlap -->
+    <div class="pt-6">
+        <!-- Main content starts here -->
+    </div>
+
+    <div class="pt-20">
+        <!-- Main content goes here -->
+    </div>
+    <!-- Hero Section -->
+    <section id="home"
+        class="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8">
+        <!-- Background Layers -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black to-gray-900 opacity-90"></div>
+            <div
+                class="absolute top-0 left-0 w-full h-full bg-[url('https://images.unsplash.com/photo-1639762681057-408e52192e55?q=80&w=2232&auto=format&fit=crop')] bg-cover bg-center opacity-20">
+            </div>
+
+            <!-- Floating shapes -->
+            <div
+                class="hidden sm:block absolute top-1/4 left-1/4 w-16 h-16 rounded-full bg-blue-500 opacity-20 blur-xl floating">
+            </div>
+            <div
+                class="hidden sm:block absolute top-1/3 right-1/4 w-24 h-24 rounded-full bg-purple-500 opacity-20 blur-xl floating">
+            </div>
+            <div
+                class="hidden sm:block absolute bottom-1/4 left-1/3 w-20 h-20 rounded-full bg-blue-400 opacity-20 blur-xl floating">
+            </div>
+
+            <!-- 3D shapes -->
+            <div class="hidden sm:block absolute top-1/3 right-1/4 transform rotate-12 floating">
+                <div class="w-32 h-32 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl shadow-2xl"></div>
+            </div>
+            <div class="hidden sm:block absolute bottom-1/3 left-1/4 transform -rotate-6 floating">
+                <div class="w-28 h-28 bg-gradient-to-br from-purple-500 to-blue-600 rounded-xl shadow-2xl"></div>
+            </div>
+
+        </div>
+
+        <!-- Hero Content -->
+        <div class="relative z-10 text-center max-w-5xl">
+            <h1 class="text-2xl sm:text-4xl md:text-6xl font-bold mb-5 font-orbitron tracking-wide fade-slide-up">
+                <span class="gradient-text bg-gradient-to-r from-blue-400 to-purple-500">Welcome to</span> Code Panda
+                your creative
+                <span class="gradient-text bg-gradient-to-r from-blue-400 to-purple-500">digital </span>partner
+            </h1>
+
+            <p class="text-sm sm:text-base md:text-lg text-gray-200 max-w-3xl mx-auto mb-6 tracking-wide fade-slide-up">
+                We specialize in designing stunning websites, logos, eBooks, YouTube thumbnails, and custom designs that
+                make your brand stand out.
+            </p>
+
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 fade-slide-up">
+                <button
+                    class="w-full sm:w-auto px-6 py-3 text-base bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-medium hover:opacity-90 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition">
+                    <a href="#products">Explore Products</a>
+                </button>
+                <button
+                    class="w-full sm:w-auto px-6 py-3 text-base border border-gray-600 text-white rounded-lg font-medium hover:bg-gray-800 transition">
+                    <a href="#contact">Contact</a>
+                </button>
+            </div>
+        </div>
+
+        <!-- Scroll Down Icon -->
+        <div class="absolute bottom-6 sm:bottom-10 left-0 right-0 flex justify-center">
+            <a href="#about" class="text-gray-400 hover:text-white animate-bounce">
+                <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section - Enhanced -->
+
+    <!-- Foreground Content -->
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+
+        <!-- About Heading -->
+
+        </head>
+
+        <body class="min-h-screen">
+            <!-- Floating Transparent Header -->
+            <nav
+                class="fixed top-4 left-1/2 transform -translate-x-1/2 w-[95%] z-50 bg-white/10 backdrop-blur-lg shadow-xl rounded-xl transition-all duration-500 ease-in-out hover:scale-[1.01] border border-white/20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex items-center justify-between h-16">
+                        <!-- Logo -->
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <span class="text-2xl font-bold text-white font-orbitron">
+                                    <span class="text-accent">Code</span> Panda
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Body padding to avoid header overlap -->
+            <div class="pt-6">
+                <!-- Main content starts here -->
+            </div>
+
+            <div class="pt-20">
+                <!-- Main content goes here -->
+            </div>
+            <!-- Hero Section -->
+            <section id="about" class="py-20 relative overflow-hidden min-h-screen">
+                <!-- Background Layers -->
+                <div class="absolute inset-0 z-0 pointer-events-none">
+                    <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-gray-900 to-black opacity-90">
+                    </div>
+                    <div
+                        class="absolute top-0 left-0 w-full h-full bg-[url('https://images.unsplash.com/photo-1639762681057-408e52192e55?q=80&w=2232&auto=format&fit=crop')] bg-cover bg-center opacity-10">
+                    </div>
+                </div>
+
+                <!-- Foreground Content -->
+                <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
+                    <!-- About Heading -->
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-5xl font-bold mb-4 font-orbitron">
+                            <span
+                                class="bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">About</span>
+                            Code Panda
+                        </h2>
+                        <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                            We specialize in creating custom websites, logos, e-books, YouTube thumbnails,
+                            and unique designs. Check out my YouTube channel <button class="text-blue-400"><a
+                                    href="https://www.youtube.com/@CodePanda_Code">@CodePanda_Code</a>
+                                </button>
+                            for helpful
+                            tutorials and design tips. Let’s bring your ideas to life!
+                    </div>
+
+                    <!-- Vision, Mission, Values -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+                        <div class="bg-white/5 backdrop-blur p-8 rounded-xl">
+                            <div
+                                class="w-16 h-16 bg-blue-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6">
+                                <i class="fas fa-lightbulb text-2xl text-blue-400"></i>
+                            </div>
+
+                            <!--Vision-->
+                            <h3 class="text-xl font-bold mb-4 font-orbitron">Our Vision</h3>
+                            <p class="text-gray-300">
+                                To empower aspiring and professional developers worldwide by providing
+                                clear, creative, and practical front-end coding resources that inspire innovation
+                                and simplify the web development journey.
+                            </p>
+                        </div>
+
+                        <div class="bg-white/5 backdrop-blur p-8 rounded-xl">
+                            <div
+                                class="w-16 h-16 bg-purple-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6">
+                                <i class="fas fa-bullseye text-2xl text-purple-400"></i>
+                            </div>
+
+                            <!-- Mission -->
+                            <h3 class="text-xl font-bold mb-4 font-orbitron">Our Mission</h3>
+                            <p class="text-gray-300">
+                                To deliver innovative, custom-designed websites, logos, e-books, thumbnails,
+                                and more, while educating and inspiring my audience through my YouTube
+                                channel to enhance their online presence and creativity.
+                            </p>
+                        </div>
+
+                        <div class="bg-white/5 backdrop-blur p-8 rounded-xl">
+                            <div
+                                class="w-16 h-16 bg-indigo-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6">
+                                <i class="fas fa-star text-2xl text-indigo-400"></i>
+                            </div>
+
+                            <!-- Values -->
+                            <h3 class="text-xl font-bold mb-4 font-orbitron">Our Values</h3>
+                            <p class="text-gray-300">
+                                Creativity,
+                                Quality,
+                                Education,
+                                Customer Satisfaction.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Timeline -->
+                    <div class="mb-16">
+                        <h3 class="text-2xl font-bold mb-8 text-center font-orbitron">Our Journey</h3>
+                        <div class="relative">
+                            <div
+                                class="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 to-purple-600 transform -translate-x-1/2">
+                            </div>
+
+                            <div class="space-y-16">
+                                <div class="flex flex-col md:flex-row items-center relative">
+                                    <div class="w-full md:w-1/2 p-6 md:pr-12">
+                                        <div class="bg-white/5 backdrop-blur p-6 rounded-xl">
+                                            <div class="flex items-center mb-4">
+                                                <div
+                                                    class="w-12 h-12 bg-blue-500 bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                                                    <i class="fas fa-rocket text-blue-400"></i>
+                                                </div>
+                                                <h4 class="text-lg font-bold font-orbitron"> The Beginning
+                                                </h4>
+                                            </div>
+                                            <p class="text-gray-300">
+                                                Share how CodePanda started – from the idea behind the name
+                                                to the first steps in building the business. This is where
+                                                you can highlight your passion for design, coding, and
+                                                helping others.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="hidden md:block w-1/2"></div>
+                                </div>
+
+                                <div class="flex flex-col md:flex-row items-center relative">
+                                    <div class="hidden md:block w-1/2"></div>
+                                    <div class="w-full md:w-1/2 p-6 md:pl-12">
+                                        <div class="bg-white/5 backdrop-blur p-6 rounded-xl">
+                                            <div class="flex items-center mb-4">
+                                                <div
+                                                    class="w-12 h-12 bg-purple-500 bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                                                    <i class="fas fa-users text-purple-400"></i>
+                                                </div>
+                                                <h4 class="text-lg font-bold font-orbitron">Growth and
+                                                    Learning</h4>
+                                            </div>
+                                            <p class="text-gray-300">
+                                                Talk about the progress you've made and the lessons you've
+                                                learned along the way. Mention the development of your
+                                                skills, the expansion of your services (like websites,
+                                                logos, e-books), and your journey into creating educational
+                                                content for your YouTube channel.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-col md:flex-row items-center relative">
+                                    <div class="w-full md:w-1/2 p-6 md:pr-12">
+                                        <div class="bg-white/5 backdrop-blur p-6 rounded-xl">
+                                            <div class="flex items-center mb-4">
+                                                <div
+                                                    class="w-12 h-12 bg-indigo-500 bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                                                    <i class="fas fa-trophy text-indigo-400"></i>
+                                                </div>
+                                                <h4 class="text-lg font-bold font-orbitron">Our Services and
+                                                    Expertise
+                                                </h4>
+                                            </div>
+                                            <p class="text-gray-300">
+                                                Highlight the services you offer now, showing the breadth
+                                                and depth of your expertise. Talk about your commitment to
+                                                delivering top-notch websites, logos, thumbnails, e-books,
+                                                and designs for a variety of clients.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="hidden md:block w-1/2"></div>
+                                </div>
+
+                                <div class="flex flex-col md:flex-row items-center relative">
+                                    <div class="hidden md:block w-1/2"></div>
+                                    <div class="w-full md:w-1/2 p-6 md:pl-12">
+                                        <div class="bg-white/5 backdrop-blur p-6 rounded-xl">
+                                            <div class="flex items-center mb-4">
+                                                <div
+                                                    class="w-12 h-12 bg-blue-500 bg-opacity-20 rounded-full flex items-center justify-center mr-4">
+                                                    <i class="fas fa-globe text-blue-400"></i>
+                                                </div>
+                                                <h4 class="text-lg font-bold font-orbitron">The Future
+                                                </h4>
+                                            </div>
+                                            <p class="text-gray-300">
+                                                Share your vision for the future of CodePanda – plans for
+                                                new services, content, or expanding your community. This
+                                                section shows your growth mindset and excitement for what’s
+                                                to come.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <!-- Products Section -->
+
+                    <section id="products" class="py-20 bg-gradient-to-b from-gray-900 to-black text-white">
+                        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                            <!-- Heading -->
+                            <div class="text-center mb-16">
+                                <h2 class="text-3xl md:text-5xl font-bold mb-4">
+                                    <span
+                                        class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Our</span>
+                                    Products
+                                </h2>
+                                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                                    We're excited to announce the latest update to our product line! New designs,
+                                    features, and
+                                    improvements are now available to enhance your experience. Check out our updated
+                                    collection today.
+                                </p>
+                            </div>
+
+                            <!-- Filter Buttons -->
+                            <div class="flex flex-wrap justify-center gap-3 mb-12">
+                                <button class="px-6 py-3 text-sm font-medium rounded-full bg-blue-600 text-white"><a
+                                        href="https://forms.gle/YQVEW7GSnZtjDQjUA">All
+                                        Categories</a></button>
+                                <button
+                                    class="px-6 py-3 text-sm font-medium rounded-full bg-gray-800 text-gray-300 hover:bg-gray-700"><a
+                                        href="https://forms.gle/YQVEW7GSnZtjDQjUA">Logo</a></button>
+                                <button
+                                    class="px-6 py-3 text-sm font-medium rounded-full bg-gray-800 text-gray-300 hover:bg-gray-700"><a
+                                        href="https://www.amazon.com/s?i=digital-text&rh=p_27%3ABalan%2BPramathyshan&s=relevancerank&text=Balan%20Pramathyshan">E-Books</a></button>
+                                <button
+                                    class="px-6 py-3 text-sm font-medium rounded-full bg-gray-800 text-gray-300 hover:bg-gray-700"><a
+                                        href="https://forms.gle/YQVEW7GSnZtjDQjUA">Websites</a></button>
+                                <button
+                                    class="px-6 py-3 text-sm font-medium rounded-full bg-gray-800 text-gray-300 hover:bg-gray-700"><a
+                                        href="https://forms.gle/YQVEW7GSnZtjDQjUA">YouTube
+                                        Thumbnails </a> </button>
+                                <button
+                                    class="px-6 py-3 text-sm font-medium rounded-full bg-gray-800 text-gray-300 hover:bg-gray-700"><a
+                                        href="https://forms.gle/YQVEW7GSnZtjDQjUA">Designs</a></button>
+                            </div>
+
+                            <!-- 3D Animated Product Cards -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+
+                                <!-- 3D Card 1 -->
+                                <div
+                                    class="tilt bg-gradient-to-br from-pink-500 to-yellow-500 p-1 rounded-2xl shadow-2xl hover:shadow-purple-600 transition duration-500">
+                                    <div class="bg-gray-900 rounded-2xl p-6 h-full flex flex-col justify-between">
+                                        <div class="text-center">
+                                            <i class="fas fa-palette text-6xl text-pink-400 mb-4 animate-bounce"></i>
+                                            <h3 class="text-xl font-bold mb-2">Logo,E-book,Youtube thumbnail,designs
+                                            </h3>
+                                            <p class="text-gray-400 text-sm">stunning designs are created with passion,
+                                                precision, and a
+                                                sprinkle of magic!</p>
+                                        </div>
+                                        <div class="text-center mt-6">
+                                            <p class="text-white text-sm">Email: developerdesigner63@gmail.com</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 3D Card 2 -->
+                                <div
+                                    class="tilt bg-gradient-to-br from-indigo-500 to-purple-600 p-1 rounded-2xl shadow-2xl hover:shadow-indigo-700 transition duration-500">
+                                    <div class="bg-gray-900 rounded-2xl p-6 h-full flex flex-col justify-between">
+                                        <div class="text-center">
+                                            <i
+                                                class="fas fa-layer-group text-6xl text-indigo-300 mb-4 animate-spin-slow"></i>
+                                            <h3 class="text-xl font-bold mb-2">Animated Websites</h3>
+                                            <p class="text-gray-400 text-sm">Encourage creativity, problem-solving, and
+                                                continuous learning in the world of web development.</p>
+                                        </div>
+                                        <div class="text-center mt-6">
+                                            <p class="text-white text-sm">Email: developerdesigner63@gmail.com</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 3D Card 3 -->
+                                <div
+                                    class="tilt bg-gradient-to-br from-green-400 to-blue-500 p-1 rounded-2xl shadow-2xl hover:shadow-green-600 transition duration-500">
+                                    <div class="bg-gray-900 rounded-2xl p-6 h-full flex flex-col justify-between">
+                                        <div class="text-center">
+                                            <i class="fas fa-rocket text-6xl text-green-300 mb-4 animate-pulse"></i>
+                                            <h3 class="text-xl font-bold mb-2">E-books,Designs</h3>
+                                            <p class="text-gray-400 text-sm">E-books, designs, and more are carefully
+                                                created to
+                                                inspire, engage, and impress</p>
+                                        </div>
+                                        <div class="text-center mt-6">
+                                            <p class="text-white text-sm">Email: developerdesigner63@gmail.com</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </section>
+
+
+                    <!-- Contact Section - Enhanced -->
+                    <!-- Team Section -->
+
+
+                    <section id="contact" class="py-20 relative overflow-hidden">
+                        <div class="absolute inset-0 z-0">
+                            <!-- Background gradient -->
+                            <div
+                                class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black to-gray-900 opacity-90">
+                            </div>
+
+                        </div>
+                        <!-- Background image -->
+                        <div class="absolute top-0 left-0 w-full h-full bg-cover bg-center opacity-10"
+                            style="background-image: url('https://images.unsplash.com/photo-1639762681057-408e52192e55?q=80&w=2232&auto=format&fit=crop');">
+                        </div>
+
+                        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                            <div class="text-center mb-16">
+                                <div class="text-center mb-8">
+                                    <h1 class="text-2xl font-bold mb-4 font-orbitron">Meet The Team</h1>
+                                    <p class="text-gray-300 max-w-3xl mx-auto">
+                                        Behind CodePanda is a small but passionate team dedicated to turning ideas
+                                        into digital
+                                        magic. From clean code to creative designs, we bring a mix of tech skills
+                                        and artistic flair
+                                        to every project.
+                                    </p>
+                                </div>
+                                <div class="px-4 sm:px-6 lg:px-8 contact-section">
+
+                                    <h2 class="text-3xl md:text-5xl font-bold mb-4 font-orbitron">
+                                        <span
+                                            class="bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">Get</span>
+                                        In Touch
+                                    </h2>
+                                    <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                                        Need a digital product or have a question? Reach out to us!
+                                    </p>
+                                </div>
+
+                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 px-4 md:px-0">
+
+                                    <!-- Left side: Contact Information -->
+                                    <div class="px-4 sm:px-6 lg:px-8">
+                                        <div class="bg-gray-800 p-6 sm:p-8 rounded-xl shadow-lg">
+                                            <h3
+                                                class="text-2xl sm:text-3xl font-bold mb-6 text-white text-center sm:text-left">
+                                                Contact Information</h3>
+                                            <p class="text-gray-300 mb-8 text-center sm:text-left">
+                                                Have a question or need a digital product? Contact us today!
+                                            </p>
+
+                                            <div class="space-y-6">
+                                                <!-- Location -->
+                                                <div class="flex flex-col sm:flex-row items-center sm:items-start">
+                                                    <div class="flex-shrink-0 mb-4 sm:mb-0">
+                                                        <div
+                                                            class="w-12 h-12 rounded-full bg-blue-500 bg-opacity-20 flex items-center justify-center">
+                                                            <i class="fas fa-map-marker-alt text-blue-400"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="sm:ml-4 text-center sm:text-left">
+                                                        <h4 class="text-lg font-semibold text-white">Location</h4>
+                                                        <p class="text-gray-400">Visit us online at
+                                                            <a href="https://www.youtube.com/@CodePanda_Code">
+                                                                www.youtube.com/
+                                                                @CodePanda_Code</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Email -->
+                                                <div class="flex flex-col sm:flex-row items-center sm:items-start">
+                                                    <div class="flex-shrink-0 mb-4 sm:mb-0">
+                                                        <div
+                                                            class="w-12 h-12 rounded-full bg-purple-500 bg-opacity-20 flex items-center justify-center">
+                                                            <i class="fas fa-envelope text-purple-400"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="sm:ml-4 text-center sm:text-left">
+                                                        <h4 class="text-lg font-semibold text-white">Email Us</h4>
+                                                        <p class="text-gray-400">developerdesigner63@gmail.com</p>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Hours -->
+                                                <div class="flex flex-col sm:flex-row items-center sm:items-start">
+                                                    <div class="flex-shrink-0 mb-4 sm:mb-0">
+                                                        <div
+                                                            class="w-12 h-12 rounded-full bg-indigo-500 bg-opacity-20 flex items-center justify-center">
+                                                            <i class="fas fa-clock text-indigo-400"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="sm:ml-4 text-center sm:text-left">
+                                                        <h4 class="text-lg font-semibold text-white">Github</h4>
+                                                        <p class="text-gray-400"><a
+                                                                href="https://github.com/Dev-star-code">Github For code
+                                                                repositories</a>
+                                                        </p>
+                                                        <p class="text-gray-400"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Social Links -->
+                                            <div class="mt-10">
+                                                <h4
+                                                    class="text-lg font-semibold text-white mb-4 text-center sm:text-left">
+                                                    Follow Us</h4>
+                                                <div class="flex justify-center sm:justify-start space-x-4 flex-wrap">
+                                                    <a href="#"
+                                                        class="social-icon w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-xl hover:bg-green-600 transition-colors duration-300">
+                                                        <i class="fab fa-whatsapp"></i>
+                                                    </a>
+
+                                                    <a href="https://www.youtube.com/@CodePanda_Code"><a href="#"
+                                                            class="social-icon w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-xl hover:bg-red-500 transition-colors duration-300">
+                                                            <i class="fab fa-youtube"></i>
+                                                        </a>
+                                                    </a>
+
+                                                    <a href="#"
+                                                        class="social-icon w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-xl hover:bg-pink-500 transition-colors duration-300">
+                                                        <i class="fab fa-instagram"></i>
+                                                    </a>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Right side: Button -->
+                                    <div class="flex lg:justify-end justify-center items-center p-8 mt-20 lg:mt-0">
+                                        <a href="https://forms.gle/gQBxVXWStZbu2GMg6" aria-label="Get in Touch">
+                                            <button
+                                                class="flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-lg font-semibold rounded-full shadow-lg
+                                                       hover:from-blue-700 hover:to-indigo-700 transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-400">
+                                                <span>Get in Touch</span>
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                                </svg>
+                                            </button>
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div>
+                    </section>
+
+                    <!-- Footer -->
+                    <footer class="bg-black bg-opacity-80 py-12 border-t border-gray-800">
+                        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                                <div>
+                                    <h3 class="text-xl font-bold text-white mb-4 font-orbitron">
+                                        <span class="text-accent">Code</span> Panda
+                                    </h3>
+                                    <p class="text-gray-400 mb-4">
+                                        Premium digital assets for creators and businesses. Elevate your brand with
+                                        our high-quality
+                                        products.
+                                    </p>
+                                    <div class="flex space-x-4">
+                                        <a href="#"
+                                            class="social-icon w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-lg hover:bg-blue-600">
+                                            <i class="fab fa-facebook-f"></i>
+                                        </a>
+                                        <a href="#"
+                                            class="social-icon w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-lg hover:bg-purple-600">
+                                            <i class="fab fa-instagram"></i>
+                                        </a>
+                                        <a href="#"
+                                            class="social-icon w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-lg hover:bg-green-600">
+                                            <i class="fab fa-whatsapp"></i>
+                                        <a href="#"
+                                            class="social-icon w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-lg hover:bg-red-500">
+                                            <i class="fab fa-youtube"></i>
+                                        </a>
+
+                                    </div>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold text-white mb-4 font-orbitron">Products</h4>
+                                    <ul class="space-y-2">
+                                        <li><a href="#"
+                                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"><i
+                                                    class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>
+                                                Logo Templates</a></li>
+                                        <li><a href="#"
+                                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"><i
+                                                    class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>
+                                                Social Media Kits</a>
+                                        </li>
+                                        <li><a href="#"
+                                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"><i
+                                                    class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>
+                                                UI/UX Templates</a>
+                                        </li>
+                                        <li><a href="#"
+                                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"><i
+                                                    class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>
+                                                EBooks & Guides</a>
+                                        </li>
+                                        <li><a href="#"
+                                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"><i
+                                                    class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>
+                                                Design Resources</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold text-white mb-4 font-orbitron">Company</h4>
+                                    <ul class="space-y-2">
+                                        <li><a href="#"
+                                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"><i
+                                                    class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>
+                                                About us</a></li>
+                                        <li><a href="#"
+                                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"><i
+                                                    class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>
+                                                Products</a></li>
+                                        <li><a href="#"
+                                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"><i
+                                                    class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>
+                                                Contact</a></li>
+                                        
+                                        <li><a href="#"
+                                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"><i
+                                                    class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>
+                                                Affiliate Program</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-lg font-semibold text-white mb-4 font-orbitron">Join Now</h4>
+                                    <p class="text-gray-400 mb-4">Join our whatsapp channel to get the latest updates
+                                    </p>
+                                    <form class="flex">
+
+
+                                        <button
+                                            class="px-4 py-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-r-lg hover:opacity-90 transition-opacity duration-300">
+                                            <i class="fas fa-paper-plane tracking-extra-wide"> <a
+                                                    href="https://whatsapp.com/channel/0029Vb5PAbQ9Bb65GYclVE2q">Join
+                                                    Our Whatsapp Channel</a></i>
+
+                                        </button>
+
+                                    </form>
+                                    
+                                </div>
+                            </div>
+                            <hr class="my-8 border-gray-800">
+                            <div class="text-center text-gray-400">
+                                <p>&copy;  @CodePanda_Code. All rights reserved.</p>
+                                <p class="mt-2">Crafted with <i class="fas fa-heart text-red-500"></i> by
+                                    <a href="https://www.youtube.com/@CodePanda_Code" class="text-blue-400 hover:underline">CodePanda_Code</a>
+                        </div>
+                    </footer>
+
+                    <script>
+                        // Scroll animations
+                        document.addEventListener('DOMContentLoaded', function () {
+                            // Initialize GSAP animations
+                            gsap.registerPlugin(ScrollTrigger);
+
+                            // Animate elements on scroll
+                            gsap.utils.toArray('.fade-in').forEach((element, i) => {
+                                gsap.from(element, {
+                                    scrollTrigger: {
+                                        trigger: element,
+                                        start: "top 80%",
+                                        toggleActions: "play none none none"
+                                    },
+                                    
+                                    opacity: 0,
+                                    y: 50,
+                                    duration: 0.8,
+                                    delay: i * 0.1
+                                });
+                            });
+
+                            const menuToggle = document.getElementById('mobile-menu-toggle');
+                            const mobileMenu = document.getElementById('mobile-menu');
+
+                            menuToggle.addEventListener('click', () => {
+                                mobileMenu.classList.toggle('hidden');
+                            });
+
+
+                            // Smooth scrolling for navigation
+                            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                                anchor.addEventListener('click', function (e) {
+                                    e.preventDefault();
+
+                                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                                        behavior: 'smooth'
+                                    });
+                                });
+                            });
+
+                            // Mobile menu toggle (would need additional HTML/CSS for full implementation)
+                            const mobileMenuButton = document.querySelector('.md\\:hidden button');
+                            if (mobileMenuButton) {
+                                mobileMenuButton.addEventListener('click', function () {
+                                    // This would toggle a mobile menu
+                                    console.log('Mobile menu clicked');
+                                });
+                            }
+
+                            // Product card hover effects
+                            const productCards = document.querySelectorAll('.product-card, .card-3d');
+                            productCards.forEach(card => {
+                                card.addEventListener('mouseenter', function () {
+                                    gsap.to(this, {
+                                        y: -10,
+                                        rotationY: this.classList.contains('card-3d') ? 10 : 0,
+                                        rotationX: this.classList.contains('card-3d') ? 5 : 0,
+                                        boxShadow: '0 20px 30px rgba(59, 130, 246, 0.3)',
+                                        duration: 0.3
+                                    });
+                                });
+
+                                card.addEventListener('mouseleave', function () {
+                                    gsap.to(this, {
+                                        y: 0,
+                                        rotationY: 0,
+                                        rotationX: 0,
+                                        boxShadow: 'none',
+                                        duration: 0.3
+                                    });
+                                });
+                            });
+
+                            // Floating animation for elements
+                            gsap.to('.floating', {
+                                y: 20,
+                                duration: 3,
+                                repeat: -1,
+                                yoyo: true,
+                                ease: "sine.inOut"
+                            });
+
+                            // Map pin animation
+                            const mapPin = document.querySelector('.map-pin');
+                            if (mapPin) {
+                                gsap.to(mapPin, {
+                                    scale: 1.1,
+                                    duration: 1.5,
+                                    repeat: -1,
+                                    yoyo: true,
+                                    ease: "power1.inOut"
+                                });
+                            }
+
+                            // Gradient text animation
+                            const gradientTexts = document.querySelectorAll('.gradient-text');
+                            gradientTexts.forEach(text => {
+                                gsap.to(text, {
+                                    'background-position': '200% 0%',
+                                    duration: 8,
+                                    repeat: -1,
+                                    ease: "none"
+                                });
+                            });
+                        });
+
+                    </script>
+        </body>
+
+</html>
