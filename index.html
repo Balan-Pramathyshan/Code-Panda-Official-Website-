@@ -1,1150 +1,1430 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Created by Code Panda -->
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Panda</title>
-    <link rel="shortcut icon" href="Round CodePanda.png" type="image/x-icon">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Poppins:wght@300;400;600&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="Round Codepanda.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config = { theme: { extend: { colors: { primary: '#8b5cf6', secondary: '#ec4899' }, borderRadius: { 'none': '0px', 'sm': '4px', DEFAULT: '8px', 'md': '12px', 'lg': '16px', 'xl': '20px', '2xl': '24px', '3xl': '32px', 'full': '9999px', 'button': '8px' } } } }</script>
     <style>
-        :root {
-            --primary: #0f172a;
-            --secondary: #1e293b;
-            --accent: #3b82f6;
-            --accent-hover: #2563eb;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
+        :where([class^="ri-"])::before {
+            content: "\f3c2";
         }
 
-        html {
-            scroll-behavior: smooth;
+        @keyframes gradientFlow {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--primary);
-            color: var(--text-primary);
-            overflow-x: hidden;
-            scroll-behavior: smooth;
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotateX(10deg) rotateY(10deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotateX(-10deg) rotateY(-10deg);
+            }
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        .font-orbitron {
-            font-family: 'Orbitron', sans-serif;
+        @keyframes spinIn {
+            from {
+                transform: perspective(1000px) rotateY(90deg) scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: perspective(1000px) rotateY(0) scale(1);
+                opacity: 1;
+            }
         }
 
-        .glass-card {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+        @keyframes rotate3d {
+            0% {
+                transform: perspective(1000px) rotateX(0) rotateY(0);
+            }
+
+            100% {
+                transform: perspective(1000px) rotateX(360deg) rotateY(360deg);
+            }
         }
 
-        .product-card {
-            transition: all 0.3s ease;
+        @keyframes tiltHover {
+            0% {
+                transform: perspective(1000px) rotateX(0) rotateY(0);
+            }
+
+            50% {
+                transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
+            }
+
+            100% {
+                transform: perspective(1000px) rotateX(0) rotateY(0);
+            }
+        }
+
+        .transform-3d {
             transform-style: preserve-3d;
             perspective: 1000px;
         }
 
-        .product-card:hover {
-            transform: translateY(-10px) rotateX(5deg);
-            box-shadow: 0 20px 30px rgba(59, 130, 246, 0.3);
-        }
-
-        .glow-border {
-            position: relative;
-        }
-
-        .glow-border::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 0.5rem;
-            padding: 2px;
-            background: linear-gradient(45deg, var(--accent), #8b5cf6);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-        }
-
-        .floating {
-            animation: floating 6s ease-in-out infinite;
-        }
-
-        @keyframes floating {
-            0% {
-                transform: translate(0, 0px);
-            }
-
-            50% {
-                transform: translate(0, 15px);
-            }
-
-            100% {
-                transform: translate(0, -0px);
-            }
-        }
-
-        .tilt {
-            transform-style: preserve-3d;
+        .hover-tilt {
             transition: transform 0.3s ease;
         }
 
-        .tilt:hover {
-            transform: rotateY(10deg) rotateX(10deg);
+        .hover-tilt:hover {
+            animation: tiltHover 2s infinite;
         }
 
-        .card-flip {
-            perspective: 1000px;
-        }
-
-        .card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            transition: transform 0.6s;
-        }
-
-        .card-flip:hover .card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .card-front,
-        .card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 1rem;
-        }
-
-        .card-back {
-            transform: rotateY(180deg);
-        }
-
-        .fade-slide-up {
-            animation: fadeSlideUp 1s ease-out both;
-        }
-
-        @keyframes fadeSlideUp {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in {
-            opacity: 0;
-            transition: opacity 0.6s ease-out;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-        }
-
-        .map-pin {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.1);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        .social-icon {
-            transition: all 0.3s ease;
-        }
-
-        .social-icon:hover {
-            transform: translateY(-5px) scale(1.1);
-            color: var(--accent);
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--secondary);
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--accent);
-            border-radius: 4px;
-        }
-
-        /* 3D Card Effect */
-        .card-3d {
-            transform-style: preserve-3d;
+        .card-hover {
             transition: all 0.5s ease;
+            transform-style: preserve-3d;
         }
 
-        .card-3d:hover {
-            transform: rotateY(10deg) rotateX(5deg) translateY(-10px);
+        .card-hover:hover {
+            transform: translateY(-5px) translateZ(30px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 20px 20px 40px -5px rgba(0, 0, 0, 0.2);
         }
 
-        /* Gradient Text */
+        @keyframes tiltIn {
+            from {
+                transform: perspective(1000px) rotateX(30deg) translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: perspective(1000px) rotateX(0) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleUp {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .gradient-bg {
+            background: linear-gradient(-45deg, #5727b0, #8b5cf6, #ec4899, #3b82f6);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+        }
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .spin-in {
+            opacity: 0;
+            animation: spinIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .tilt-in {
+            opacity: 0;
+            animation: tiltIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .scale-up {
+            opacity: 0;
+            animation: scaleUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            animation: slideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            animation: slideInRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
         .gradient-text {
-            background-clip: text;
+            background: linear-gradient(90deg, #8b5cf6, #ec4899);
             -webkit-background-clip: text;
+            background-clip: text;
             color: transparent;
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .hero-content {
-                padding-top: 6rem;
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .btn-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-hover:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px -3px rgba(139, 92, 246, 0.3), 0 4px 6px -2px rgba(139, 92, 246, 0.2);
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
             }
 
-            .product-grid {
-                grid-template-columns: repeat(1, minmax(0, 1fr));
-            }
-
-            .timeline-item {
-                flex-direction: column;
-            }
-
-            .timeline-line {
-                display: none;
+            50% {
+                transform: translateY(-10px);
             }
         }
 
-        /* Base styles */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        header,
-        nav,
-        main,
-        footer {
-            padding: 20px;
-        }
-
-        nav ul {
-            list-style-type: none;
-            display: flex;
-            gap: 15px;
-        }
-
-        @media (max-width: 768px) {
-            .contact-container {
-                padding: 1rem;
+        @keyframes slideIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
             }
 
-            .contact-container h3 {
-                text-align: center;
-                font-size: 1.5rem;
-            }
-
-            .contact-container p,
-            .contact-container h4 {
-                text-align: center;
-            }
-
-            .contact-container .flex {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
+            to {
+                transform: scale(1);
+                opacity: 1;
             }
         }
 
-        @media (max-width: 639px) {
-
-            /* Override spacing or alignment for better mobile UX */
-            .contact-section {
-                padding: 1rem;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
             }
 
-            .contact-section h3,
-            .contact-section h4,
-            .contact-section p {
-                text-align: center;
+            to {
+                opacity: 1;
             }
+        }
 
-            .contact-section .flex {
-                flex-direction: column !important;
-                align-items: center !important;
-                text-align: center !important;
-            }
+        .chatbot-widget {
+            animation: bounce 3s ease-in-out infinite;
+        }
 
-            .social-icon {
-                margin-bottom: 0.75rem;
-            }
+        .chatbot-widget:hover {
+            animation: none;
+            transform: scale(1.1);
+            transition: transform 0.3s ease;
+        }
 
-            .text-justify {
-                text-align: justify;
-            }
+        .chat-window {
+            animation: slideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-origin: bottom right;
+        }
+
+        .chat-message-bot {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .chat-message-user {
+            animation: fadeIn 0.5s ease-out;
         }
     </style>
 </head>
 
-<body class="min-h-screen">
-    <!-- Floating Transparent Header -->
-    <nav
-        class="fixed top-4 left-1/2 transform -translate-x-1/2 w-[95%] z-50 bg-white/10 backdrop-blur-lg shadow-xl rounded-xl transition-all duration-500 ease-in-out hover:scale-[1.01] border border-white/20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <!-- Logo -->
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <span class="text-2xl font-bold text-white font-orbitron">
-                            <span class="text-accent">Code</span> Panda
-                        </span>
+<body class="bg-black text-white min-h-screen relative">
+    <!-- Hero Section with Gradient Background -->
+    <div id="home" class="relative min-h-screen overflow-hidden">
+        <div class="absolute inset-0 z-0"
+            style="background-image: url('https://readdy.ai/api/search-image?query=abstract%20digital%20fluid%20gradient%20wave%20with%20blue%2C%20purple%2C%20and%20magenta%20colors%20flowing%20like%20liquid%20on%20black%20background%2C%20elegant%20modern%20technology%20visualization%2C%20high%20resolution%2C%20no%20text%2C%20minimalist%20design&width=1920&height=1080&seq=hero123&orientation=landscape'); background-size: cover; background-position: center;">
+        </div>
+        <div class="absolute inset-0 bg-black bg-opacity-50 z-10"></div>
+        <!-- Navigation -->
+        <nav class="fixed w-full top-0 left-0 z-50 px-6 py-4">
+            <div class="max-w-6xl mx-auto">
+                <div
+                    class="bg-white/10 backdrop-blur-md rounded-full border border-white/10 shadow-lg shadow-black/5 px-6 py-3 flex items-center justify-between">
+                    <a href="#" class="flex items-center">
+                        <span class="text-2xl font-['Pacifico'] text-white">Code Panda</span>
+                    </a>
+                    <div class="hidden md:flex-1 md:flex items-center justify-center space-x-8">
+                        <div class="flex items-center space-x-8">
+                            <a href="#home"
+                                class="nav-link text-white hover:text-primary transition-all duration-300 relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-primary hover:after:w-full after:transition-all after:duration-300">Home</a>
+                            <a href="#about"
+                                class="nav-link text-white hover:text-primary transition-all duration-300 relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-primary hover:after:w-full after:transition-all after:duration-300">About</a>
+                            <a href="#features"
+                                class="nav-link text-white hover:text-primary transition-all duration-300 relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-primary hover:after:w-full after:transition-all after:duration-300">Features</a>
+                            <a href="#contact"
+                                class="nav-link text-white hover:text-primary transition-all duration-300 relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-primary hover:after:w-full after:transition-all after:duration-300">Contact</a>
+                        </div>
                     </div>
-                </div>
-
-                <!-- Desktop Navigation -->
-                <div class="hidden md:block">
-                    <div class="ml-10 flex items-baseline space-x-8">
-                        <a href="#home"
-                            class="text-white hover:text-accent px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Home</a>
-                        <a href="#about"
-                            class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">About</a>
-                        <a href="#products"
-                            class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Products</a>
-                        <a href="#contact"
-                            class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Contact</a>
-                        
-                            <button
-                                class="ml-4 px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-md text-sm font-medium hover:opacity-90 transition-opacity duration-300">
-                                <a href="https://www.youtube.com/@CodePanda_Code">Subscribe</a>
-                            </button>
-                        
-                    </div>
-                </div>
-
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden">
-                    <button id="mobile-menu-toggle" class="text-gray-300 hover:text-white focus:outline-none">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
+                    <a href="https://youtube.com/@codepanda_code"
+                        class="hidden md:inline-block px-8 py-2.5 bg-gradient-to-r from-primary/80 to-secondary/80 hover:from-primary hover:to-secondary rounded-full text-white font-medium transition-all duration-300 shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:shadow-[0_0_25px_rgba(139,92,246,0.4)] hover:scale-105">
+                        Subscribe</a>
+                    <button class="md:hidden w-10 h-10 flex items-center justify-center text-white">
+                        <i class="ri-menu-line ri-lg"></i>
                     </button>
                 </div>
             </div>
-        </div>
-
-        <!-- Mobile Menu (Hidden by Default) -->
-        <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 space-y-2">
-            <a href="#home"
-                class="block text-white px-3 py-2 rounded-md text-sm font-medium bg-white/10 hover:bg-white/20">Home</a>
-            <a href="#about"
-                class="block text-white px-3 py-2 rounded-md text-sm font-medium bg-white/10 hover:bg-white/20">About</a>
-            <a href="#products"
-                class="block text-white px-3 py-2 rounded-md text-sm font-medium bg-white/10 hover:bg-white/20">Products</a>
-            <a href="#contact"
-                class="block text-white px-3 py-2 rounded-md text-sm font-medium bg-white/10 hover:bg-white/20">Contact</a>
-            <button
-                class="w-full text-center px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-md text-sm font-medium hover:opacity-90">
-                <a href="https://www.youtube.com/@CodePanda_Code">Subscribe </a>
-            </button>
-        </div>
-    </nav>
-
-
-    <!-- Body padding to avoid header overlap -->
-    <div class="pt-6">
-        <!-- Main content starts here -->
-    </div>
-
-    <div class="pt-20">
-        <!-- Main content goes here -->
-    </div>
-    <!-- Hero Section -->
-    <section id="home"
-        class="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6 lg:px-8">
-        <!-- Background Layers -->
-        <div class="absolute inset-0 z-0">
-            <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black to-gray-900 opacity-90"></div>
-            <div
-                class="absolute top-0 left-0 w-full h-full bg-[url('https://images.unsplash.com/photo-1639762681057-408e52192e55?q=80&w=2232&auto=format&fit=crop')] bg-cover bg-center opacity-20">
-            </div>
-
-            <!-- Floating shapes -->
-            <div
-                class="hidden sm:block absolute top-1/4 left-1/4 w-16 h-16 rounded-full bg-blue-500 opacity-20 blur-xl floating">
-            </div>
-            <div
-                class="hidden sm:block absolute top-1/3 right-1/4 w-24 h-24 rounded-full bg-purple-500 opacity-20 blur-xl floating">
-            </div>
-            <div
-                class="hidden sm:block absolute bottom-1/4 left-1/3 w-20 h-20 rounded-full bg-blue-400 opacity-20 blur-xl floating">
-            </div>
-
-            <!-- 3D shapes -->
-            <div class="hidden sm:block absolute top-1/3 right-1/4 transform rotate-12 floating">
-                <div class="w-32 h-32 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl shadow-2xl"></div>
-            </div>
-            <div class="hidden sm:block absolute bottom-1/3 left-1/4 transform -rotate-6 floating">
-                <div class="w-28 h-28 bg-gradient-to-br from-purple-500 to-blue-600 rounded-xl shadow-2xl"></div>
-            </div>
-
-        </div>
-
+        </nav>
         <!-- Hero Content -->
-        <div class="relative z-10 text-center max-w-5xl">
-            <h1 class="text-2xl sm:text-4xl md:text-6xl font-bold mb-5 font-orbitron tracking-wide fade-slide-up">
-                <span class="gradient-text bg-gradient-to-r from-blue-400 to-purple-500">Welcome to</span> Code Panda
-                your creative
-                <span class="gradient-text bg-gradient-to-r from-blue-400 to-purple-500">digital </span>partner
-            </h1>
-
-            <p class="text-sm sm:text-base md:text-lg text-gray-200 max-w-3xl mx-auto mb-6 tracking-wide fade-slide-up">
+        <div
+            class="relative z-20 flex flex-col items-center justify-center px-6 py-24 text-center h-screen transform-3d">
+            <span class="text-primary font-medium mb-4 slide-in-left hover-tilt"
+                style="animation-delay: 0.2s; transform: translateZ(50px)">Home</span>
+            <h1 class="text-5xl md:text-7xl font-bold mb-8 max-w-5xl leading-tight tilt-in hover-tilt"
+                style="animation-delay: 0.4s; transform: translateZ(40px)">
+                Welcome to Code Panda<span class="gradient-text"> your creative digital partner</span></h1>
+            <p class="text-xl md:text-2xl text-gray-200 mb-12 max-w-2xl slide-in-right" style="animation-delay: 0.6s">
                 We specialize in designing stunning websites, logos, eBooks, YouTube thumbnails, and custom designs that
                 make your brand stand out.
+
             </p>
-
-            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 fade-slide-up">
-                <button
-                    class="w-full sm:w-auto px-6 py-3 text-base bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-medium hover:opacity-90 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition">
-                    <a href="#products">Explore Products</a>
-                </button>
-                <button
-                    class="w-full sm:w-auto px-6 py-3 text-base border border-gray-600 text-white rounded-lg font-medium hover:bg-gray-800 transition">
-                    <a href="#contact">Contact</a>
-                </button>
+            <div class="flex flex-col sm:flex-row items-center gap-4">
+                <a href="#features"
+                    class="btn-hover bg-gradient-to-r from-[#6366f1] to-[#a855f7] text-white text-xl font-medium px-16 py-5 rounded-[100px] shadow-lg hover:shadow-xl transition-all duration-300 whitespace-nowrap">
+                    Explore Features</a>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfMM7V6TJDZB0-TV5iUSx9JS65gFPjLmpsEICi0qJqCan9rBg/viewform?usp=header" class="flex items-center gap-2 text-xl font-medium hover:text-primary transition-colors">
+                    <i class="ri-play-circle-line ri-xl"></i>
+                    Contact Us
+                </a>
             </div>
-        </div>
-
-        <!-- Scroll Down Icon -->
-        <div class="absolute bottom-6 sm:bottom-10 left-0 right-0 flex justify-center">
-            <a href="#about" class="text-gray-400 hover:text-white animate-bounce">
-                <svg class="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-                </svg>
-            </a>
-        </div>
-    </section>
-
-    <!-- About Section - Enhanced -->
-
-    <!-- Foreground Content -->
-    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
-
-        <!-- About Heading -->
-
-        </head>
-
-        <body class="min-h-screen">
-            <!-- Floating Transparent Header -->
-            <nav
-                class="fixed top-4 left-1/2 transform -translate-x-1/2 w-[95%] z-50 bg-white/10 backdrop-blur-lg shadow-xl rounded-xl transition-all duration-500 ease-in-out hover:scale-[1.01] border border-white/20">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex items-center justify-between h-16">
-                        <!-- Logo -->
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0">
-                                <span class="text-2xl font-bold text-white font-orbitron">
-                                    <span class="text-accent">Code</span> Panda
-                                </span>
-                            </div>
-                        </div>
-                    </div>
+            <div class="flex items-center gap-8 mt-12">
+                <div class="flex -space-x-4">
+                    <img src="https://readdy.ai/api/search-image?query=professional%20smiling%20young%20asian%20businesswoman%20headshot%20on%20clean%20white%20background%2C%20studio%20lighting&width=96&height=96&seq=user1&orientation=squarish"
+                        alt="User Avatar" class="w-12 h-12 rounded-full border-2 border-white">
+                    <img src="https://readdy.ai/api/search-image?query=professional%20confident%20african%20american%20businessman%20headshot%20on%20clean%20white%20background%2C%20studio%20lighting&width=96&height=96&seq=user2&orientation=squarish"
+                        alt="User Avatar" class="w-12 h-12 rounded-full border-2 border-white">
+                    <img src="https://readdy.ai/api/search-image?query=professional%20middle%20aged%20caucasian%20businesswoman%20headshot%20on%20clean%20white%20background%2C%20studio%20lighting&width=96&height=96&seq=user3&orientation=squarish"
+                        alt="User Avatar" class="w-12 h-12 rounded-full border-2 border-white">
                 </div>
-            </nav>
-
-            <!-- Body padding to avoid header overlap -->
-            <div class="pt-6">
-                <!-- Main content starts here -->
-            </div>
-
-            <div class="pt-20">
-                <!-- Main content goes here -->
-            </div>
-            <!-- Hero Section -->
-            <section id="about" class="py-20 relative overflow-hidden min-h-screen">
-                <!-- Background Layers -->
-                <div class="absolute inset-0 z-0 pointer-events-none">
-                    <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-gray-900 to-black opacity-90">
+                <div class="flex items-center gap-2">
+                    <div class="flex items-center">
+                        <i class="ri-star-fill ri-sm text-yellow-400"></i>
+                        <i class="ri-star-fill ri-sm text-yellow-400"></i>
+                        <i class="ri-star-fill ri-sm text-yellow-400"></i>
+                        <i class="ri-star-fill ri-sm text-yellow-400"></i>
+                        <i class="ri-star-fill ri-sm text-yellow-400"></i>
                     </div>
+                    <p class="text-gray-300">Trusted by digital agencies, educators, and solo entrepreneurs.
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Use Cases Section -->
+    <section class="py-20 px-6 bg-gray-950">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-primary text-xl mb-3">About Us</h2>
+                <h3 class="text-4xl font-bold mb-6">About Code Panda
+                </h3>
+                <p class="text-gray-300 max-w-2xl mx-auto">We specialize in creating custom websites, logos, e-books,
+                    YouTube thumbnails, and unique designs.
+                    Check out my YouTube channel <a href="https://youtube.com/@codepanda_code">@CodePanda_Code</a> for
+                    helpful tutorials and design tips. Let’s bring your ideas to life!</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 mb-24">
+                <div class="bg-gray-900 rounded-xl p-8 relative group spin-in"
+                    style="animation-delay: 0.3s; transform-style: preserve-3d; perspective: 1000px;">
                     <div
-                        class="absolute top-0 left-0 w-full h-full bg-[url('https://images.unsplash.com/photo-1639762681057-408e52192e55?q=80&w=2232&auto=format&fit=crop')] bg-cover bg-center opacity-10">
+                        class="absolute -inset-4 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl blur-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    </div>
+                    <div class="relative flex items-center mb-8">
+                        <div
+                            class="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center mr-4 shadow-lg shadow-primary/20">
+                            <i class="ri-line-chart-line ri-2x text-primary"></i>
+                        </div>
+                        <div>
+                            <span class="text-primary text-sm font-medium">Channel Highlights</span>
+                            <h4 class="text-2xl font-bold mt-1">Why Creators & Coders Trust CodePanda_Code
+
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <div class="text-4xl font-bold mb-2">
+                                <span class="stat-number" data-target="99">0</span>%
+                            </div>
+                            <p class="text-gray-400">Website Speed Performance</p>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-bold mb-2">
+                                <span class="stat-number" data-target="150">0</span>+
+                            </div>
+                            <p class="text-gray-400">Projects</p>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-bold mb-2">
+                                <span class="stat-number" data-target="100">0</span>+
+                            </div>
+                            <p class="text-gray-400">Learners Engaged</p>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-bold mb-2">
+                                <span class="stat-number" data-target="100">0</span>%
+                            </div>
+                            <p class="text-gray-400">High Retention & Satisfaction</p>
+                        </div>
                     </div>
                 </div>
-
-                <!-- Foreground Content -->
-                <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
-                    <!-- About Heading -->
-                    <div class="text-center mb-16">
-                        <h2 class="text-3xl md:text-5xl font-bold mb-4 font-orbitron">
-                            <span
-                                class="bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">About</span>
-                            Code Panda
-                        </h2>
-                        <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-                            We specialize in creating custom websites, logos, e-books, YouTube thumbnails,
-                            and unique designs. Check out my YouTube channel <button class="text-blue-400"><a
-                                    href="https://www.youtube.com/@CodePanda_Code">@CodePanda_Code</a>
-                                </button>
-                            for helpful
-                            tutorials and design tips. Let’s bring your ideas to life!
+                <div class="bg-gray-900 rounded-xl p-8 relative group">
+                    <div
+                        class="absolute -inset-4 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl blur-lg opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                     </div>
-
-                    <!-- Vision, Mission, Values -->
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
-                        <div class="bg-white/5 backdrop-blur p-8 rounded-xl">
-                            <div
-                                class="w-16 h-16 bg-blue-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6">
-                                <i class="fas fa-lightbulb text-2xl text-blue-400"></i>
-                            </div>
-
-                            <!--Vision-->
-                            <h3 class="text-xl font-bold mb-4 font-orbitron">Our Vision</h3>
-                            <p class="text-gray-300">
-                                To empower aspiring and professional developers worldwide by providing
-                                clear, creative, and practical front-end coding resources that inspire innovation
-                                and simplify the web development journey.
-                            </p>
+                    <div class="relative flex items-center gap-4 mb-8">
+                        <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                            <i class="ri-trophy-line ri-xl text-primary"></i>
                         </div>
+                        <div>
+                            <h4 class="text-xl font-bold">Recognized by the Community</h4>
+                            <p class="text-sm text-gray-400">What Makes CodePanda_Code Stand Out
 
-                        <div class="bg-white/5 backdrop-blur p-8 rounded-xl">
-                            <div
-                                class="w-16 h-16 bg-purple-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6">
-                                <i class="fas fa-bullseye text-2xl text-purple-400"></i>
-                            </div>
-
-                            <!-- Mission -->
-                            <h3 class="text-xl font-bold mb-4 font-orbitron">Our Mission</h3>
-                            <p class="text-gray-300">
-                                To deliver innovative, custom-designed websites, logos, e-books, thumbnails,
-                                and more, while educating and inspiring my audience through my YouTube
-                                channel to enhance their online presence and creativity.
-                            </p>
-                        </div>
-
-                        <div class="bg-white/5 backdrop-blur p-8 rounded-xl">
-                            <div
-                                class="w-16 h-16 bg-indigo-500 bg-opacity-20 rounded-full flex items-center justify-center mb-6">
-                                <i class="fas fa-star text-2xl text-indigo-400"></i>
-                            </div>
-
-                            <!-- Values -->
-                            <h3 class="text-xl font-bold mb-4 font-orbitron">Our Values</h3>
-                            <p class="text-gray-300">
-                                Creativity,
-                                Quality,
-                                Education,
-                                Customer Satisfaction.
                             </p>
                         </div>
                     </div>
-
-                    <!-- Timeline -->
-                    <div class="mb-16">
-                        <h3 class="text-2xl font-bold mb-8 text-center font-orbitron">Our Journey</h3>
-                        <div class="relative">
-                            <div
-                                class="hidden md:block absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-blue-500 to-purple-600 transform -translate-x-1/2">
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center">
+                                <i class="ri-award-line ri-lg text-blue-500"></i>
                             </div>
-
-                            <div class="space-y-16">
-                                <div class="flex flex-col md:flex-row items-center relative">
-                                    <div class="w-full md:w-1/2 p-6 md:pr-12">
-                                        <div class="bg-white/5 backdrop-blur p-6 rounded-xl">
-                                            <div class="flex items-center mb-4">
-                                                <div
-                                                    class="w-12 h-12 bg-blue-500 bg-opacity-20 rounded-full flex items-center justify-center mr-4">
-                                                    <i class="fas fa-rocket text-blue-400"></i>
-                                                </div>
-                                                <h4 class="text-lg font-bold font-orbitron"> The Beginning
-                                                </h4>
-                                            </div>
-                                            <p class="text-gray-300">
-                                                Share how CodePanda started – from the idea behind the name
-                                                to the first steps in building the business. This is where
-                                                you can highlight your passion for design, coding, and
-                                                helping others.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="hidden md:block w-1/2"></div>
-                                </div>
-
-                                <div class="flex flex-col md:flex-row items-center relative">
-                                    <div class="hidden md:block w-1/2"></div>
-                                    <div class="w-full md:w-1/2 p-6 md:pl-12">
-                                        <div class="bg-white/5 backdrop-blur p-6 rounded-xl">
-                                            <div class="flex items-center mb-4">
-                                                <div
-                                                    class="w-12 h-12 bg-purple-500 bg-opacity-20 rounded-full flex items-center justify-center mr-4">
-                                                    <i class="fas fa-users text-purple-400"></i>
-                                                </div>
-                                                <h4 class="text-lg font-bold font-orbitron">Growth and
-                                                    Learning</h4>
-                                            </div>
-                                            <p class="text-gray-300">
-                                                Talk about the progress you've made and the lessons you've
-                                                learned along the way. Mention the development of your
-                                                skills, the expansion of your services (like websites,
-                                                logos, e-books), and your journey into creating educational
-                                                content for your YouTube channel.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="flex flex-col md:flex-row items-center relative">
-                                    <div class="w-full md:w-1/2 p-6 md:pr-12">
-                                        <div class="bg-white/5 backdrop-blur p-6 rounded-xl">
-                                            <div class="flex items-center mb-4">
-                                                <div
-                                                    class="w-12 h-12 bg-indigo-500 bg-opacity-20 rounded-full flex items-center justify-center mr-4">
-                                                    <i class="fas fa-trophy text-indigo-400"></i>
-                                                </div>
-                                                <h4 class="text-lg font-bold font-orbitron">Our Services and
-                                                    Expertise
-                                                </h4>
-                                            </div>
-                                            <p class="text-gray-300">
-                                                Highlight the services you offer now, showing the breadth
-                                                and depth of your expertise. Talk about your commitment to
-                                                delivering top-notch websites, logos, thumbnails, e-books,
-                                                and designs for a variety of clients.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="hidden md:block w-1/2"></div>
-                                </div>
-
-                                <div class="flex flex-col md:flex-row items-center relative">
-                                    <div class="hidden md:block w-1/2"></div>
-                                    <div class="w-full md:w-1/2 p-6 md:pl-12">
-                                        <div class="bg-white/5 backdrop-blur p-6 rounded-xl">
-                                            <div class="flex items-center mb-4">
-                                                <div
-                                                    class="w-12 h-12 bg-blue-500 bg-opacity-20 rounded-full flex items-center justify-center mr-4">
-                                                    <i class="fas fa-globe text-blue-400"></i>
-                                                </div>
-                                                <h4 class="text-lg font-bold font-orbitron">The Future
-                                                </h4>
-                                            </div>
-                                            <p class="text-gray-300">
-                                                Share your vision for the future of CodePanda – plans for
-                                                new services, content, or expanding your community. This
-                                                section shows your growth mindset and excitement for what’s
-                                                to come.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div>
+                                <h5 class="font-medium mb-1">Clear Explanations, Clean Code</h5>
+                                <p class="text-sm text-gray-400"> Focused on clarity and code quality.</p>
                             </div>
                         </div>
-                    </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center">
+                                <i class="ri-medal-line ri-lg text-purple-500"></i>
+                            </div>
+                            <div>
+                                <h5 class="font-medium mb-1"> Creative + Technical Fusion</h5>
+                                <p class="text-sm text-gray-400"> Perfect mix of design and development, loved by coders
+                                    and creatives alike.
 
-
-
-
-                    <!-- Products Section -->
-
-                    <section id="products" class="py-20 bg-gradient-to-b from-gray-900 to-black text-white">
-                        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-                            <!-- Heading -->
-                            <div class="text-center mb-16">
-                                <h2 class="text-3xl md:text-5xl font-bold mb-4">
-                                    <span
-                                        class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Our</span>
-                                    Products
-                                </h2>
-                                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-                                    We're excited to announce the latest update to our product line! New designs,
-                                    features, and
-                                    improvements are now available to enhance your experience. Check out our updated
-                                    collection today.
                                 </p>
                             </div>
-
-                            <!-- Filter Buttons -->
-                            <div class="flex flex-wrap justify-center gap-3 mb-12">
-                                <button class="px-6 py-3 text-sm font-medium rounded-full bg-blue-600 text-white"><a
-                                        href="https://forms.gle/YQVEW7GSnZtjDQjUA">All
-                                        Categories</a></button>
-                                <button
-                                    class="px-6 py-3 text-sm font-medium rounded-full bg-gray-800 text-gray-300 hover:bg-gray-700"><a
-                                        href="https://forms.gle/YQVEW7GSnZtjDQjUA">Logo</a></button>
-                                <button
-                                    class="px-6 py-3 text-sm font-medium rounded-full bg-gray-800 text-gray-300 hover:bg-gray-700"><a
-                                        href="https://www.amazon.com/s?i=digital-text&rh=p_27%3ABalan%2BPramathyshan&s=relevancerank&text=Balan%20Pramathyshan">E-Books</a></button>
-                                <button
-                                    class="px-6 py-3 text-sm font-medium rounded-full bg-gray-800 text-gray-300 hover:bg-gray-700"><a
-                                        href="https://forms.gle/YQVEW7GSnZtjDQjUA">Websites</a></button>
-                                <button
-                                    class="px-6 py-3 text-sm font-medium rounded-full bg-gray-800 text-gray-300 hover:bg-gray-700"><a
-                                        href="https://forms.gle/YQVEW7GSnZtjDQjUA">YouTube
-                                        Thumbnails </a> </button>
-                                <button
-                                    class="px-6 py-3 text-sm font-medium rounded-full bg-gray-800 text-gray-300 hover:bg-gray-700"><a
-                                        href="https://forms.gle/YQVEW7GSnZtjDQjUA">Designs</a></button>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-pink-500/10 flex items-center justify-center">
+                                <i class="ri-shield-star-line ri-lg text-pink-500"></i>
                             </div>
-
-                            <!-- 3D Animated Product Cards -->
-                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-
-                                <!-- 3D Card 1 -->
-                                <div
-                                    class="tilt bg-gradient-to-br from-pink-500 to-yellow-500 p-1 rounded-2xl shadow-2xl hover:shadow-purple-600 transition duration-500">
-                                    <div class="bg-gray-900 rounded-2xl p-6 h-full flex flex-col justify-between">
-                                        <div class="text-center">
-                                            <i class="fas fa-palette text-6xl text-pink-400 mb-4 animate-bounce"></i>
-                                            <h3 class="text-xl font-bold mb-2">Logo,E-book,Youtube thumbnail,designs
-                                            </h3>
-                                            <p class="text-gray-400 text-sm">stunning designs are created with passion,
-                                                precision, and a
-                                                sprinkle of magic!</p>
-                                        </div>
-                                        <div class="text-center mt-6">
-                                            <p class="text-white text-sm">Email: developerdesigner63@gmail.com</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- 3D Card 2 -->
-                                <div
-                                    class="tilt bg-gradient-to-br from-indigo-500 to-purple-600 p-1 rounded-2xl shadow-2xl hover:shadow-indigo-700 transition duration-500">
-                                    <div class="bg-gray-900 rounded-2xl p-6 h-full flex flex-col justify-between">
-                                        <div class="text-center">
-                                            <i
-                                                class="fas fa-layer-group text-6xl text-indigo-300 mb-4 animate-spin-slow"></i>
-                                            <h3 class="text-xl font-bold mb-2">Animated Websites</h3>
-                                            <p class="text-gray-400 text-sm">Encourage creativity, problem-solving, and
-                                                continuous learning in the world of web development.</p>
-                                        </div>
-                                        <div class="text-center mt-6">
-                                            <p class="text-white text-sm">Email: developerdesigner63@gmail.com</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- 3D Card 3 -->
-                                <div
-                                    class="tilt bg-gradient-to-br from-green-400 to-blue-500 p-1 rounded-2xl shadow-2xl hover:shadow-green-600 transition duration-500">
-                                    <div class="bg-gray-900 rounded-2xl p-6 h-full flex flex-col justify-between">
-                                        <div class="text-center">
-                                            <i class="fas fa-rocket text-6xl text-green-300 mb-4 animate-pulse"></i>
-                                            <h3 class="text-xl font-bold mb-2">E-books,Designs</h3>
-                                            <p class="text-gray-400 text-sm">E-books, designs, and more are carefully
-                                                created to
-                                                inspire, engage, and impress</p>
-                                        </div>
-                                        <div class="text-center mt-6">
-                                            <p class="text-white text-sm">Email: developerdesigner63@gmail.com</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-
+                            <div>
+                                <h5 class="font-medium mb-1"> Built for YouTube & Beyond</h5>
+                                <p class="text-sm text-gray-400"> Learn, get inspired, and build your portfolio—all in
+                                    one place.</p>
                             </div>
                         </div>
-                    </section>
-
-
-                    <!-- Contact Section - Enhanced -->
-                    <!-- Team Section -->
-
-
-                    <section id="contact" class="py-20 relative overflow-hidden">
-                        <div class="absolute inset-0 z-0">
-                            <!-- Background gradient -->
-                            <div
-                                class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-black to-gray-900 opacity-90">
+                    </div>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-3 gap-12">
+                <!-- Use Case 1 -->
+                <div class="group bg-gray-900 rounded-xl overflow-hidden card-hover relative tilt-in"
+                    style="animation-delay: 0.2s; transform-style: preserve-3d; perspective: 1000px;">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-gray-900 z-10 transition-all duration-300 group-hover:from-black/80 group-hover:via-black/60 group-hover:to-gray-900">
+                    </div>
+                    <div class="h-64 overflow-hidden transform group-hover:scale-105 transition-transform duration-500">
+                        <img src="https://readdy.ai/api/search-image?query=modern%20minimalist%20e-commerce%20workspace%20with%20sleek%20laptop%20displaying%20analytics%20dashboard%2C%20soft%20ambient%20lighting%2C%20contemporary%20office%20setup%20with%20clean%20white%20background%2C%20professional%20and%20sophisticated%20composition&width=600&height=400&seq=usecase1&orientation=landscape"
+                            alt="E-commerce Marketing" class="w-full h-full object-cover object-top brightness-75">
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6 z-20">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
+                                <i class="ri-shopping-bag-line ri-lg text-blue-500"></i>
                             </div>
-
+                            <h4 class="text-xl font-bold">Our Vision
+                            </h4>
                         </div>
-                        <!-- Background image -->
-                        <div class="absolute top-0 left-0 w-full h-full bg-cover bg-center opacity-10"
-                            style="background-image: url('https://images.unsplash.com/photo-1639762681057-408e52192e55?q=80&w=2232&auto=format&fit=crop');">
+                        <p class="text-gray-300 mb-4">Empowering developers worldwide with clear, creative front-end
+                            resources to inspire innovation and simplify web development.
+                        </p>
+                        <div class="flex items-center text-blue-500">
+                            <span class="text-sm font-medium mr-2">Highlights:</span>
+                            <span class="text-sm">Code. Create. Inspire</span>
                         </div>
-
-                        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                            <div class="text-center mb-16">
-                                <div class="text-center mb-8">
-                                    <h1 class="text-2xl font-bold mb-4 font-orbitron">Meet The Team</h1>
-                                    <p class="text-gray-300 max-w-3xl mx-auto">
-                                        Behind CodePanda is a small but passionate team dedicated to turning ideas
-                                        into digital
-                                        magic. From clean code to creative designs, we bring a mix of tech skills
-                                        and artistic flair
-                                        to every project.
-                                    </p>
-                                </div>
-                                <div class="px-4 sm:px-6 lg:px-8 contact-section">
-
-                                    <h2 class="text-3xl md:text-5xl font-bold mb-4 font-orbitron">
-                                        <span
-                                            class="bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text">Get</span>
-                                        In Touch
-                                    </h2>
-                                    <p class="text-xl text-gray-300 max-w-3xl mx-auto">
-                                        Need a digital product or have a question? Reach out to us!
-                                    </p>
-                                </div>
-
-                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 px-4 md:px-0">
-
-                                    <!-- Left side: Contact Information -->
-                                    <div class="px-4 sm:px-6 lg:px-8">
-                                        <div class="bg-gray-800 p-6 sm:p-8 rounded-xl shadow-lg">
-                                            <h3
-                                                class="text-2xl sm:text-3xl font-bold mb-6 text-white text-center sm:text-left">
-                                                Contact Information</h3>
-                                            <p class="text-gray-300 mb-8 text-center sm:text-left">
-                                                Have a question or need a digital product? Contact us today!
-                                            </p>
-
-                                            <div class="space-y-6">
-                                                <!-- Location -->
-                                                <div class="flex flex-col sm:flex-row items-center sm:items-start">
-                                                    <div class="flex-shrink-0 mb-4 sm:mb-0">
-                                                        <div
-                                                            class="w-12 h-12 rounded-full bg-blue-500 bg-opacity-20 flex items-center justify-center">
-                                                            <i class="fas fa-map-marker-alt text-blue-400"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="sm:ml-4 text-center sm:text-left">
-                                                        <h4 class="text-lg font-semibold text-white">Location</h4>
-                                                        <p class="text-gray-400">Visit us online at
-                                                            <a href="https://www.youtube.com/@CodePanda_Code">
-                                                                www.youtube.com/
-                                                                @CodePanda_Code</a>
-                                                        </p>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Email -->
-                                                <div class="flex flex-col sm:flex-row items-center sm:items-start">
-                                                    <div class="flex-shrink-0 mb-4 sm:mb-0">
-                                                        <div
-                                                            class="w-12 h-12 rounded-full bg-purple-500 bg-opacity-20 flex items-center justify-center">
-                                                            <i class="fas fa-envelope text-purple-400"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="sm:ml-4 text-center sm:text-left">
-                                                        <h4 class="text-lg font-semibold text-white">Email Us</h4>
-                                                        <p class="text-gray-400">developerdesigner63@gmail.com</p>
-                                                    </div>
-                                                </div>
-
-                                                <!-- Hours -->
-                                                <div class="flex flex-col sm:flex-row items-center sm:items-start">
-                                                    <div class="flex-shrink-0 mb-4 sm:mb-0">
-                                                        <div
-                                                            class="w-12 h-12 rounded-full bg-indigo-500 bg-opacity-20 flex items-center justify-center">
-                                                            <i class="fas fa-clock text-indigo-400"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="sm:ml-4 text-center sm:text-left">
-                                                        <h4 class="text-lg font-semibold text-white">Github</h4>
-                                                        <p class="text-gray-400"><a
-                                                                href="https://github.com/Dev-star-code">Github For code
-                                                                repositories</a>
-                                                        </p>
-                                                        <p class="text-gray-400"></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Social Links -->
-                                            <div class="mt-10">
-                                                <h4
-                                                    class="text-lg font-semibold text-white mb-4 text-center sm:text-left">
-                                                    Follow Us</h4>
-                                                <div class="flex justify-center sm:justify-start space-x-4 flex-wrap">
-                                                    <a href="https://whatsapp.com/channel/0029Vb5PAbQ9Bb65GYclVE2q"
-                                                        class="social-icon w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-xl hover:bg-green-600 transition-colors duration-300">
-                                                        <i class="fab fa-whatsapp"></i>
-                                                    </a>
-
-                                                    <a href="https://youtube.com/@codepanda_code"
-                                                            class="social-icon w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-xl hover:bg-red-500 transition-colors duration-300">
-                                                            <i class="fab fa-youtube"></i>
-                                                        </a>
-                
-
-                                                    <a href="https://www.instagram.com/codepanda_code"
-                                                        class="social-icon w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-xl hover:bg-pink-500 transition-colors duration-300">
-                                                        <i class="fab fa-instagram"></i>
-                                                    </a>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Right side: Button -->
-                                    <div class="flex lg:justify-end justify-center items-center p-8 mt-20 lg:mt-0">
-                                        <a href="https://forms.gle/gQBxVXWStZbu2GMg6" aria-label="Get in Touch">
-                                            <button
-                                                class="flex items-center space-x-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-lg font-semibold rounded-full shadow-lg
-                                                       hover:from-blue-700 hover:to-indigo-700 transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-400">
-                                                <span>Get in Touch</span>
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                                </svg>
-                                            </button>
-                                        </a>
-                                    </div>
-
-                                </div>
+                    </div>
+                </div>
+                <!-- Use Case 2 -->
+                <div class="group bg-gray-900 rounded-xl overflow-hidden card-hover relative">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-gray-900 z-10 transition-all duration-300 group-hover:from-black/80 group-hover:via-black/60 group-hover:to-gray-900">
+                    </div>
+                    <div class="h-64 overflow-hidden transform group-hover:scale-105 transition-transform duration-500">
+                        <img src="https://readdy.ai/api/search-image?query=modern%20tech%20workspace%20with%20elegant%20monitor%20displaying%20data%20visualization%2C%20contemporary%20minimalist%20office%20environment%2C%20clean%20white%20walls%2C%20organized%20desk%20arrangement%2C%20professional%20setting%20with%20sleek%20design%20elements&width=600&height=400&seq=usecase2&orientation=landscape"
+                            alt="SaaS Marketing" class="w-full h-full object-cover object-top brightness-75">
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6 z-20">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
+                                <i class="ri-rocket-line ri-lg text-purple-500"></i>
                             </div>
-                    </section>
-
-                    <!-- Footer -->
-                    <footer class="bg-black bg-opacity-80 py-12 border-t border-gray-800">
-                        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                                <div>
-                                    <h3 class="text-xl font-bold text-white mb-4 font-orbitron">
-                                        <span class="text-accent">Code</span> Panda
-                                    </h3>
-                                    <p class="text-gray-400 mb-4">
-                                        Premium digital assets for creators and businesses. Elevate your brand with
-                                        our high-quality
-                                        products.
-                                    </p>
-                                    <div class="flex space-x-4">
-                                        <a href="#"
-                                            class="social-icon w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-lg hover:bg-blue-600">
-                                            <i class="fab fa-facebook-f"></i>
-                                        </a>
-                                        <a href="https://www.instagram.com/codepanda_code"
-                                            class="social-icon w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-lg hover:bg-purple-600">
-                                            <i class="fab fa-instagram"></i>
-                                        </a>
-                                        <a href="https://whatsapp.com/channel/0029Vb5PAbQ9Bb65GYclVE2q"
-                                            class="social-icon w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-lg hover:bg-green-600">
-                                            <i class="fab fa-whatsapp"></i>
-                                        <a href="https://youtube.com/@codepanda_code"
-                                            class="social-icon w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-lg hover:bg-red-500">
-                                            <i class="fab fa-youtube"></i>
-                                        </a>
-
-                                    </div>
-                                </div>
-                                <div>
-                                    <h4 class="text-lg font-semibold text-white mb-4 font-orbitron">Products</h4>
-                                    <ul class="space-y-2">
-                                        <li><a href="#"
-                                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"><i
-                                                    class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>
-                                                Logo Templates</a></li>
-                                        <li><a href="#"
-                                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"><i
-                                                    class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>
-                                                Social Media Kits</a>
-                                        </li>
-                                        <li><a href="#"
-                                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"><i
-                                                    class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>
-                                                UI/UX Templates</a>
-                                        </li>
-                                        <li><a href="#"
-                                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"><i
-                                                    class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>
-                                                EBooks & Guides</a>
-                                        </li>
-                                        <li><a href="#"
-                                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"><i
-                                                    class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>
-                                                Design Resources</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <h4 class="text-lg font-semibold text-white mb-4 font-orbitron">Company</h4>
-                                    <ul class="space-y-2">
-                                        <li><a href="#"
-                                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"><i
-                                                    class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>
-                                                About us</a></li>
-                                        <li><a href="#"
-                                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"><i
-                                                    class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>
-                                                Products</a></li>
-                                        <li><a href="#"
-                                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"><i
-                                                    class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>
-                                                Contact</a></li>
-                                        
-                                        <li><a href="#"
-                                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center"><i
-                                                    class="fas fa-chevron-right text-xs mr-2 text-blue-400"></i>
-                                                Affiliate Program</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <h4 class="text-lg font-semibold text-white mb-4 font-orbitron">Join Now</h4>
-                                    <p class="text-gray-400 mb-4">Join our whatsapp channel to get the latest updates
-                                    </p>
-                                    <form class="flex">
-
-
-                                        <button
-                                            class="px-4 py-1 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-r-lg hover:opacity-90 transition-opacity duration-300">
-                                            <i class="fas fa-paper-plane tracking-extra-wide"> <a
-                                                    href="https://whatsapp.com/channel/0029Vb5PAbQ9Bb65GYclVE2q">Join
-                                                    Our Whatsapp Channel</a></i>
-
-                                        </button>
-
-                                    </form>
-                                    
-                                </div>
-                            </div>
-                            <hr class="my-8 border-gray-800">
-                            <div class="text-center text-gray-400">
-                                <p>&copy;  @CodePanda_Code. All rights reserved.</p>
-                                <p class="mt-2">Crafted with <i class="fas fa-heart text-red-500"></i> by
-                                    <a href="https://www.youtube.com/@CodePanda_Code" class="text-blue-400 hover:underline">CodePanda_Code</a>
+                            <h4 class="text-xl font-bold">Our Values
+                            </h4>
                         </div>
-                    </footer>
+                        <p class="text-gray-300 mb-4">Creativity, Quality, Education, Customer Satisfaction</p>
+                        <div class="flex items-center text-purple-500">
+                            <span class="text-sm font-medium mr-2">Highlights:</span>
+                            <span class="text-sm">Crafting ideas into impact</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Use Case 3 -->
+                <div class="group bg-gray-900 rounded-xl overflow-hidden card-hover relative">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-gray-900 z-10 transition-all duration-300 group-hover:from-black/80 group-hover:via-black/60 group-hover:to-gray-900">
+                    </div>
+                    <div class="h-64 overflow-hidden transform group-hover:scale-105 transition-transform duration-500">
+                        <img src="https://readdy.ai/api/search-image?query=contemporary%20marketing%20workspace%20with%20sleek%20presentation%20display%20showing%20analytics%2C%20modern%20minimalist%20office%20interior%2C%20clean%20organized%20desk%20setup%2C%20professional%20atmosphere%20with%20elegant%20design%20elements&width=600&height=400&seq=usecase3&orientation=landscape"
+                            alt="Agency Scaling" class="w-full h-full object-cover object-top brightness-75">
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6 z-20">
+                        <div class="flex items-center gap-3 mb-3">
+                            <div class="w-10 h-10 rounded-lg bg-pink-500/20 flex items-center justify-center">
+                                <i class="ri-line-chart-line ri-lg text-pink-500"></i>
+                            </div>
+                            <h4 class="text-xl font-bold">Our Mission
+                            </h4>
+                        </div>
+                        <p class="text-gray-300 mb-4">Creating custom websites, designs, and content while inspiring and
+                            educating through YouTube to boost creativity and online presence.
+                        </p>
+                        <div class="flex items-center text-pink-500">
+                            <span class="text-sm font-medium mr-2">Highlights:</span>
+                            <span class="text-sm">Where creativity meets code</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script id="navigation-script">
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+    <script id="stats-animation">
+        document.addEventListener('DOMContentLoaded', function () {
+            const stats = document.querySelectorAll('.stat-number');
+            function animateNumber(element, target) {
+                let current = 0;
+                const increment = target / 50;
+                const duration = 2000;
+                const interval = duration / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    element.textContent = Math.round(current);
+                }, interval);
+            }
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = parseInt(entry.target.dataset.target);
+                        animateNumber(entry.target, target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            stats.forEach(stat => observer.observe(stat));
+        });
+    </script>
+    <!-- Features Section -->
+    <section id="features" class="py-20 px-6 bg-black">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-primary text-xl mb-3">Our Features</h2>
+                <h3 class="text-4xl font-bold">Our Valued Clients & Partners </h3>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 transform-3d">
+                <!-- Feature 1: Live Chat -->
+                <div class="bg-gray-900 rounded-xl p-8 card-hover transform hover:scale-105 transition-all duration-300 scale-up transform-3d hover-tilt"
+                    style="animation-delay: 0.2s; transform: translateZ(20px)">
+                    <h4 class="text-2xl font-bold mb-4">Live Chat</h4>
+                    <p class="text-gray-300 mb-6">Have questions or need real-time assistance? Our live chat feature
+                        connects you instantly with support and
+                        fellow developers, making learning interactive and collaborative.</p>
+                    <div class="bg-gray-800 rounded-lg p-4 mb-6">
+                        <style>
+                            @keyframes slideUp {
+                                from {
+                                    opacity: 0;
+                                    transform: translateY(20px);
+                                }
 
+                                to {
+                                    opacity: 1;
+                                    transform: translateY(0);
+                                }
+                            }
+
+                            .chat-message {
+                                opacity: 0;
+                            }
+
+                            .chat-message.animate {
+                                animation: slideUp 0.5s ease forwards;
+                            }
+
+                            .chat-message:nth-child(2) {
+                                animation-delay: 0.2s;
+                            }
+                        </style>
+                        <div class="chat-message flex items-start mb-4">
+                            <div class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center mr-3">
+                                <i class="ri-user-line ri-sm"></i>
+                            </div>
+                            <div class="bg-gray-700 rounded-lg p-3 max-w-xs">
+                                <p class="text-sm">Can you help me create a custom website for my project?</p>
+                                <span class="text-xs text-gray-400">10:45 AM</span>
+                            </div>
+                        </div>
+                        <div class="chat-message flex items-start justify-end mb-4">
+                            <div class="bg-primary bg-opacity-30 rounded-lg p-3 max-w-xs">
+                                <p class="text-sm">Absolutely! We’ll work together to build a professional site that
+                                    fits your needs perfectly</p>
+                                <span class="text-xs text-gray-400">15:30 PM</span>
+                            </div>
+                            <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ml-3">
+                                <i class="ri-customer-service-line ri-sm"></i>
+                            </div>
+                        </div>
+                    </div>
                     <script>
-                        // Scroll animations
                         document.addEventListener('DOMContentLoaded', function () {
-                            // Initialize GSAP animations
-                            gsap.registerPlugin(ScrollTrigger);
-
-                            // Animate elements on scroll
-                            gsap.utils.toArray('.fade-in').forEach((element, i) => {
-                                gsap.from(element, {
-                                    scrollTrigger: {
-                                        trigger: element,
-                                        start: "top 80%",
-                                        toggleActions: "play none none none"
-                                    },
-                                    
-                                    opacity: 0,
-                                    y: 50,
-                                    duration: 0.8,
-                                    delay: i * 0.1
+                            const observer = new IntersectionObserver((entries) => {
+                                entries.forEach(entry => {
+                                    if (entry.isIntersecting) {
+                                        entry.target.classList.add('animate');
+                                    }
                                 });
-                            });
-
-                            const menuToggle = document.getElementById('mobile-menu-toggle');
-                            const mobileMenu = document.getElementById('mobile-menu');
-
-                            menuToggle.addEventListener('click', () => {
-                                mobileMenu.classList.toggle('hidden');
-                            });
-
-
-                            // Smooth scrolling for navigation
-                            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                                anchor.addEventListener('click', function (e) {
-                                    e.preventDefault();
-
-                                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                                        behavior: 'smooth'
-                                    });
-                                });
-                            });
-
-                            // Mobile menu toggle (would need additional HTML/CSS for full implementation)
-                            const mobileMenuButton = document.querySelector('.md\\:hidden button');
-                            if (mobileMenuButton) {
-                                mobileMenuButton.addEventListener('click', function () {
-                                    // This would toggle a mobile menu
-                                    console.log('Mobile menu clicked');
-                                });
-                            }
-
-                            // Product card hover effects
-                            const productCards = document.querySelectorAll('.product-card, .card-3d');
-                            productCards.forEach(card => {
-                                card.addEventListener('mouseenter', function () {
-                                    gsap.to(this, {
-                                        y: -10,
-                                        rotationY: this.classList.contains('card-3d') ? 10 : 0,
-                                        rotationX: this.classList.contains('card-3d') ? 5 : 0,
-                                        boxShadow: '0 20px 30px rgba(59, 130, 246, 0.3)',
-                                        duration: 0.3
-                                    });
-                                });
-
-                                card.addEventListener('mouseleave', function () {
-                                    gsap.to(this, {
-                                        y: 0,
-                                        rotationY: 0,
-                                        rotationX: 0,
-                                        boxShadow: 'none',
-                                        duration: 0.3
-                                    });
-                                });
-                            });
-
-                            // Floating animation for elements
-                            gsap.to('.floating', {
-                                y: 20,
-                                duration: 3,
-                                repeat: -1,
-                                yoyo: true,
-                                ease: "sine.inOut"
-                            });
-
-                            // Map pin animation
-                            const mapPin = document.querySelector('.map-pin');
-                            if (mapPin) {
-                                gsap.to(mapPin, {
-                                    scale: 1.1,
-                                    duration: 1.5,
-                                    repeat: -1,
-                                    yoyo: true,
-                                    ease: "power1.inOut"
-                                });
-                            }
-
-                            // Gradient text animation
-                            const gradientTexts = document.querySelectorAll('.gradient-text');
-                            gradientTexts.forEach(text => {
-                                gsap.to(text, {
-                                    'background-position': '200% 0%',
-                                    duration: 8,
-                                    repeat: -1,
-                                    ease: "none"
-                                });
+                            }, { threshold: 0.5 });
+                            document.querySelectorAll('.chat-message').forEach(message => {
+                                observer.observe(message);
                             });
                         });
-
                     </script>
-        </body>
+                    <a href="#features" class="inline-flex items-center text-primary hover:text-secondary transition-colors">
+                        Explore Feature
+                        <i class="ri-arrow-right-line ri-sm ml-2"></i>
+                    </a>
+                </div>
+                <!-- Feature 2: Secured Payment -->
+                <div class="bg-gray-900 rounded-xl p-8 card-hover transform hover:scale-105 hover:rotate-1 transition-all duration-300 scale-up"
+                    style="animation-delay: 0.4s">
+                    <h4 class="text-2xl font-bold mb-4">High-Quality Digital Products
+                    </h4>
+                    <p class="text-gray-300 mb-6">At CodePanda_Code, we are committed to delivering top-notch digital
+                        products — from custom websites and logos to e-books and design assets. Every creation is
+                        crafted with precision and creativity to help you stand out and succeed online.
+
+                    </p>
+                    <div class="bg-gray-800 rounded-lg p-4 mb-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="flex items-center">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center mr-3">
+                                    <i class="ri-secure-payment-line ri-lg"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-medium">SEO Optimization
+                                    </h5>
+                                    <div class="flex items-center">
+                                        <i class="ri-check-line ri-sm text-green-500 mr-1"></i>
+                                        <span class="text-sm text-green-500">Verified</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w-8 h-8 flex items-center justify-center">
+                                <i class="ri-more-2-fill ri-lg"></i>
+                            </div>
+                        </div>
+                        <div class="bg-gray-700 rounded-lg p-3">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm text-gray-300">Achieve up to</span>
+                                <span class="font-medium">90%</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-300">Improve your website’s ranking to reach the top
+                                </span>
+                                <span class="text-sm">10</span>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#features" class="inline-flex items-center text-primary hover:text-secondary transition-colors">
+                        Explore Feature
+                        <i class="ri-arrow-right-line ri-sm ml-2"></i>
+                    </a>
+                </div>
+                <!-- Feature 3: Receive Feedbacks -->
+                <div class="bg-gray-900 rounded-xl p-8 card-hover transform hover:scale-105 hover:rotate-1 transition-all duration-300 scale-up"
+                    style="animation-delay: 0.6s">
+                    <h4 class="text-2xl font-bold mb-4">Receive Feedbacks</h4>
+                    <p class="text-gray-300 mb-6">We value our community’s voice! Easily share your thoughts,
+                        suggestions, and reviews to help us improve and deliver content that truly meets your learning
+                        needs.</p>
+                    <div class="bg-gray-800 rounded-lg p-4 mb-6">
+                        <div class="flex items-center mb-3">
+                            <i class="ri-double-quotes-l ri-2x text-primary mr-2"></i>
+                        </div>
+                        <p class="text-sm italic mb-3">"The marketing automation tools have completely transformed our
+                            workflow. We're saving at least 15 hours per week and seeing a 34% increase in engagement
+                            rates."</p>
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center mr-3">
+                                <i class="ri-user-line ri-sm"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium">Alexandra Reynolds</p>
+                                <p class="text-xs text-gray-400">Marketing Director, TechVision</p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#features" class="inline-flex items-center text-primary hover:text-secondary transition-colors">
+                        Explore Feature
+                        <i class="ri-arrow-right-line ri-sm ml-2"></i>
+                    </a>
+                </div>
+                <!-- Feature 4: Analytics Dashboard -->
+                <div class="bg-gray-900 rounded-xl p-8 card-hover transform hover:scale-105 hover:rotate-1 transition-all duration-300 scale-up"
+                    style="animation-delay: 0.8s">
+                    <h4 class="text-2xl font-bold mb-4">Analytics Dashboard</h4>
+                    <p class="text-gray-300 mb-6">Track your progress and engagement effortlessly with our intuitive
+                        analytics dashboard. Monitor video views, watch time, and interaction stats to stay motivated
+                        and focused on your coding journey.</p>
+                    <div class="bg-gray-800 rounded-lg p-4 mb-6 h-48" id="analytics-chart"></div>
+                    <a href="#features" class="inline-flex items-center text-primary hover:text-secondary transition-colors">
+                        Explore Feature
+                        <i class="ri-arrow-right-line ri-sm ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script id="navigation-script">
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+    <script id="stats-animation">
+        document.addEventListener('DOMContentLoaded', function () {
+            const stats = document.querySelectorAll('.stat-number');
+            function animateNumber(element, target) {
+                let current = 0;
+                const increment = target / 50;
+                const duration = 2000;
+                const interval = duration / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    element.textContent = Math.round(current);
+                }, interval);
+            }
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = parseInt(entry.target.dataset.target);
+                        animateNumber(entry.target, target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            stats.forEach(stat => observer.observe(stat));
+        });
+    </script>
+
+    <!-- Products Section -->
+    <section class="py-20 px-6 bg-black">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-primary text-xl mb-3">Products</h2>
+                <h3 class="text-4xl font-bold mb-6">Our Products</h3>
+                <p class="text-gray-300 max-w-2xl mx-auto">We're excited to announce the latest update to our product
+                    line! New designs, features, and improvements are now available to enhance your experience. Check
+                    out our updated collection today.
+
+                </p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-12">
+                <!-- Testimonial 1 -->
+                <div class="bg-gray-900 rounded-xl p-8 card-hover flex flex-col float-animation"
+                    style="animation-delay: 0.2s; transform-style: preserve-3d; perspective: 1000px;">
+                    <div class="flex items-center mb-6">
+                        <i class="ri-star-fill ri-sm text-yellow-400"></i>
+                        <i class="ri-star-fill ri-sm text-yellow-400"></i>
+                        <i class="ri-star-fill ri-sm text-yellow-400"></i>
+                        <i class="ri-star-fill ri-sm text-yellow-400"></i>
+                        <i class="ri-star-fill ri-sm text-yellow-400"></i>
+                    </div>
+                    <h1>Logo,E-book,Youtube Thumbnails,Designs</h1>
+
+
+                    <p class="text-gray-300 italic flex-grow mb-6">stunning designs are created with passion, precision,
+                        and a sprinkle of magic!
+
+                    </p>
+                    <div class="flex items-center h-[72px]">
+                        <div class="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center mr-4">
+                            <i class="ri-user-line ri-lg"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium">Email me if you need any digital products.</p>
+                            <p class="text-sm text-gray-400">codepandac@gmail.com
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="bg-gray-900 rounded-xl p-8 card-hover flex flex-col">
+                    <div class="flex items-center mb-6">
+                        <i class="ri-star-fill ri-sm text-yellow-400"></i>
+                        <i class="ri-star-fill ri-sm text-yellow-400"></i>
+                        <i class="ri-star-fill ri-sm text-yellow-400"></i>
+                        <i class="ri-star-fill ri-sm text-yellow-400"></i>
+                        <i class="ri-star-fill ri-sm text-yellow-400"></i>
+                    </div>
+                    <h1>Animated Websites</h1>
+
+
+                    <p class="text-gray-300 italic flex-grow mb-6">Encourage creativity, problem-solving, and continuous
+                        learning in the world of web development.
+
+                    </p>
+                    <div class="flex items-center h-[72px]">
+                        <div class="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center mr-4">
+                            <i class="ri-user-line ri-lg"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium">Email me if you need any digital products.</p>
+                            <p class="text-sm text-gray-400">codepandac@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="bg-gray-900 rounded-xl p-8 card-hover flex flex-col">
+                    <div class="flex items-center mb-6">
+                        <i class="ri-star-fill ri-sm text-yellow-400"></i>
+                        <i class="ri-star-fill ri-sm text-yellow-400"></i>
+                        <i class="ri-star-fill ri-sm text-yellow-400"></i>
+                        <i class="ri-star-fill ri-sm text-yellow-400"></i>
+                        <i class="ri-star-fill ri-sm text-yellow-400"></i>
+                    </div>
+                    <h1>Designs</h1>
+
+                    <p class="text-gray-300 italic flex-grow mb-6">Designs, and more are carefully created to inspire,
+                        engage, and impress</p>
+                    <div class="flex items-center h-[72px]">
+                        <div class="w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center mr-4">
+                            <i class="ri-user-line ri-lg"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium">Email me if you need any digital products.</p>
+                            <p class="text-sm text-gray-400">codepandac@gmail.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script id="navigation-script">
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+    <script id="stats-animation">
+        document.addEventListener('DOMContentLoaded', function () {
+            const stats = document.querySelectorAll('.stat-number');
+            function animateNumber(element, target) {
+                let current = 0;
+                const increment = target / 50;
+                const duration = 2000;
+                const interval = duration / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    element.textContent = Math.round(current);
+                }, interval);
+            }
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = parseInt(entry.target.dataset.target);
+                        animateNumber(entry.target, target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            stats.forEach(stat => observer.observe(stat));
+        });
+    </script>
+    <!-- Pricing Section -->
+    <!-- FAQ Section -->
+    <section id="about" class="py-20 px-6 bg-black">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-primary text-xl mb-3">Contact</h2>
+                <h3 class="text-4xl font-bold mb-6">Get In Touch</h3>
+                <p class="text-gray-300">Behind CodePanda is a small but passionate team dedicated to turning ideas into
+                    digital magic. From clean code to creative designs, we bring a mix of tech skills and artistic flair
+                    to every project.</p>
+            </div>
+            <div class="space-y-4" id="faq-container">
+                <!-- FAQ Item 1 -->
+                <div class="border border-gray-800 rounded-lg overflow-hidden">
+                    <button
+                        class="faq-button w-full flex items-center justify-between p-6 text-left focus:outline-none">
+                        <span class="text-lg font-medium">Need a Digital Product? Let’s Talk!</span>
+                        <i class="ri-add-line ri-lg faq-icon"></i>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6">
+                        <p class="text-gray-300">Ready to elevate your brand with custom digital creations? Reach out
+                            today and let’s bring your vision to life.
+
+
+                        </p>
+                    </div>
+                </div>
+                <!-- FAQ Item 2 -->
+                <div class="border border-gray-800 rounded-lg overflow-hidden">
+                    <button
+                        class="faq-button w-full flex items-center justify-between p-6 text-left focus:outline-none">
+                        <span class="text-lg font-medium">Request a Custom Design</span>
+                        <i class="ri-add-line ri-lg faq-icon"></i>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6">
+                        <p class="text-gray-300">Tell us what you need — we’ll craft a digital solution tailored
+                            specifically for your business or personal project.
+
+                        </p>
+                    </div>
+                </div>
+                <!-- FAQ Item 3 -->
+                <div class="border border-gray-800 rounded-lg overflow-hidden">
+                    <button
+                        class="faq-button w-full flex items-center justify-between p-6 text-left focus:outline-none">
+                        <span class="text-lg font-medium">Bring Your Ideas to Life</span>
+                        <i class="ri-add-line ri-lg faq-icon"></i>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6">
+                        <p class="text-gray-300">Whether it’s a logo, eBook, website, or banner — we’re here to turn
+                            your ideas into stunning digital products.
+
+                        </p>
+                    </div>
+                </div>
+                <!-- FAQ Item 4 -->
+                <div class="border border-gray-800 rounded-lg overflow-hidden">
+                    <button
+                        class="faq-button w-full flex items-center justify-between p-6 text-left focus:outline-none">
+                        <span class="text-lg font-medium">Let’s Build Your Brand Digitally</span>
+                        <i class="ri-add-line ri-lg faq-icon"></i>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6">
+                        <p class="text-gray-300">Whether you're starting fresh or upgrading, we create stunning digital
+                            products to power your brand.
+
+                        </p>
+                    </div>
+                </div>
+                <!-- FAQ Item 5 -->
+                <div class="border border-gray-800 rounded-lg overflow-hidden">
+                    <button
+                        class="faq-button w-full flex items-center justify-between p-6 text-left focus:outline-none">
+                        <span class="text-lg font-medium">Email me if you need any digital products</span>
+                        <i class="ri-add-line ri-lg faq-icon"></i>
+                    </button>
+                    <div class="faq-content hidden px-6 pb-6">
+                        <p class="text-gray-300">codepandac@gmail.com
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script id="navigation-script">
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+    <script id="stats-animation">
+        document.addEventListener('DOMContentLoaded', function () {
+            const stats = document.querySelectorAll('.stat-number');
+            function animateNumber(element, target) {
+                let current = 0;
+                const increment = target / 50;
+                const duration = 2000;
+                const interval = duration / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    element.textContent = Math.round(current);
+                }, interval);
+            }
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = parseInt(entry.target.dataset.target);
+                        animateNumber(entry.target, target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            stats.forEach(stat => observer.observe(stat));
+        });
+    </script>
+    <!-- CTA Section -->
+    <section class="relative h-[400px] overflow-hidden rounded-3xl mx-auto max-w-7xl">
+        <div class="absolute inset-0 bg-gradient-to-r from-pink-300 via-purple-300 to-blue-300"></div>
+        <style>
+            @keyframes rotateClockwise {
+                0% {
+                    transform: rotate(0deg);
+                }
+
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+            @keyframes rotateCounterClockwise {
+                0% {
+                    transform: rotate(0deg);
+                }
+
+                100% {
+                    transform: rotate(-360deg);
+                }
+            }
+        </style>
+        <div class="absolute left-[10%] top-1/2 -translate-y-1/2 w-[40%] perspective-[1000px] flex items-center gap-4">
+            <div class="w-2/3 relative z-0">
+                <img src="https://public.readdy.ai/ai/img_res/98396f56-37d0-4c87-ace9-f7de22e11642.jpg"
+                    alt="Abstract Shape" class="w-full h-auto object-cover scale-150"
+                    style="animation: rotateClockwise 20s linear infinite;">
+            </div>
+            <div class="w-1/2 relative z-10 -ml-8">
+                <img src="https://public.readdy.ai/ai/img_res/3cf1d9a4-5823-403b-b9da-7dcf837b7aea.jpg"
+                    alt="Abstract Shape 2" class="w-full h-auto object-cover"
+                    style="animation: rotateCounterClockwise 20s linear infinite;">
+            </div>
+        </div>
+        <div class="absolute left-[55%] top-1/2 -translate-y-1/2 text-left">
+            <h2 class="text-5xl font-bold text-gray-900 mb-8">Tell us what you need, and we’ll reply with the<br>perfect
+                solution</h2>
+
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfMM7V6TJDZB0-TV5iUSx9JS65gFPjLmpsEICi0qJqCan9rBg/viewform?usp=header"
+            class="inline-flex items-center bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white font-medium px-12 py-4 rounded-[100px] hover:opacity-90 transition-all duration-300 whitespace-nowrap text-xl transform-3d hover-tilt"
+                style="transform: translateZ(30px)">
+                Contact Form
+            </a>
+
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer id="contact" class="bg-gray-950 py-16 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mb-12">
+                <div class="md:col-span-2">
+                    <a href="#" class="inline-block mb-6">
+                        <span class="text-3xl font-['Pacifico'] text-white">Code Panda</span>
+                    </a>
+                    <p class="text-gray-400 mb-6 max-w-md"><b>Premium digital assets for creators and businesses.
+                            Elevate your brand with our high-quality products.</b></p>
+                    <div class="flex space-x-4">
+
+                        <a href="https://youtube.com/@codepanda_code"
+                            class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-colors">
+                            <i class="ri-youtube-line ri-lg"></i>
+                        </a>
+
+                        <a href="https://whatsapp.com/channel/0029Vb5PAbQ9Bb65GYclVE2q"
+                            class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-colors">
+                            <i class="ri-whatsapp-line ri-lg"></i>
+                        </a>
+
+                        <a href="https://www.instagram.com/codepanda_code"
+                            class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-colors">
+                            <i class="ri-instagram-line ri-lg"></i>
+                        </a>
+
+                        <a href="https://www.threads.net/@codepanda_code"
+                            class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-colors">
+                            <i class="ri-threads-line ri-lg"></i>
+                        </a>
+
+                        <a href="https://github.com/Dev-star-code"
+                            class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-primary hover:text-white transition-colors">
+                            <i class="ri-github-line ri-lg"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h5 class="font-bold mb-6">Product</h5>
+                    <ul class="space-y-3">
+                        <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfMM7V6TJDZB0-TV5iUSx9JS65gFPjLmpsEICi0qJqCan9rBg/viewform?usp=header" class="text-gray-400 hover:text-primary transition-colors"><b>E-booke</b></a>
+                        </li>
+                        <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfMM7V6TJDZB0-TV5iUSx9JS65gFPjLmpsEICi0qJqCan9rBg/viewform?usp=header" class="text-gray-400 hover:text-primary transition-colors"><b>Logos</b></a></li>
+                        <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfMM7V6TJDZB0-TV5iUSx9JS65gFPjLmpsEICi0qJqCan9rBg/viewform?usp=header" class="text-gray-400 hover:text-primary transition-colors"><b>UI/UX
+                                    Templates</b></a></li>
+                        <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfMM7V6TJDZB0-TV5iUSx9JS65gFPjLmpsEICi0qJqCan9rBg/viewform?usp=header"
+                                class="text-gray-400 hover:text-primary transition-colors"><b>Designs/Posters</b></a>
+                        </li>
+                        <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSfMM7V6TJDZB0-TV5iUSx9JS65gFPjLmpsEICi0qJqCan9rBg/viewform?usp=header" class="text-gray-400 hover:text-primary transition-colors"><b>Youtube
+                                    Thumbnails</b></a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold mb-6">Company</h5>
+                    <ul class="space-y-3">
+                        <li><a href="#home" class="text-gray-400 hover:text-primary transition-colors"><b>Home</b></a>
+                        </li>
+                        <li><a href="#about" class="text-gray-400 hover:text-primary transition-colors"><b>About</b></a>
+                        </li>
+                        <li><a href="#features"
+                                class="text-gray-400 hover:text-primary transition-colors"><b>Features</b></a></li>
+                        <li><a href="#products"
+                                class="text-gray-400 hover:text-primary transition-colors"><b>Products</b></a></li>
+                        <li><a href="#contact"
+                                class="text-gray-400 hover:text-primary transition-colors"><b>Contact</b></a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold mb-6">Join Now</h5>
+                    <ul class="space-y-3">
+                        <li><a href="https://whatsapp.com/channel/0029Vb5PAbQ9Bb65GYclVE2q" class="text-gray-400 hover:text-primary transition-colors"><b>Whatsapp
+                                    Channel</b></a>
+                        </li>
+                        <li><a href="https://youtube.com/@codepanda_code" class="text-gray-400 hover:text-primary transition-colors"><b>Youtube</b></a>
+                        </li>
+                        <li><a href="https://www.instagram.com/codepanda_code" class="text-gray-400 hover:text-primary transition-colors"><b>Instagram</b></a>
+                        </li>
+                        <li><a href="https://www.threads.net/@codepanda_code" class="text-gray-400 hover:text-primary transition-colors"><b>Threads</b></a>
+                        </li>
+                        <li><a href="https://github.com/Dev-star-code" class="text-gray-400 hover:text-primary transition-colors"><b>Github</b></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 mb-4 md:mb-0">© CodePanda_Code. All rights reserved.</p>
+
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+    <script id="chart-script">
+        document.addEventListener('DOMContentLoaded', function () {
+            const chartContainer = document.getElementById('analytics-chart');
+            if (chartContainer) {
+                const chart = echarts.init(chartContainer);
+                const option = {
+                    animation: false,
+                    tooltip: {
+                        trigger: 'axis',
+                        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                        textStyle: {
+                            color: '#1f2937'
+                        }
+                    },
+                    grid: {
+                        top: 10,
+                        right: 10,
+                        bottom: 20,
+                        left: 40
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        axisLine: {
+                            lineStyle: {
+                                color: '#4b5563'
+                            }
+                        },
+                        axisLabel: {
+                            color: '#9ca3af'
+                        }
+                    },
+                    yAxis: {
+                        type: 'value',
+                        axisLine: {
+                            lineStyle: {
+                                color: '#4b5563'
+                            }
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                color: '#374151'
+                            }
+                        },
+                        axisLabel: {
+                            color: '#9ca3af'
+                        }
+                    },
+                    series: [
+                        {
+                            name: 'Engagement',
+                            type: 'line',
+                            smooth: true,
+                            data: [120, 132, 101, 134, 90, 180],
+                            lineStyle: {
+                                color: 'rgba(87, 181, 231, 1)'
+                            },
+                            itemStyle: {
+                                color: 'rgba(87, 181, 231, 1)'
+                            },
+                            showSymbol: false,
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(87, 181, 231, 0.3)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(87, 181, 231, 0.1)'
+                                    }
+                                ])
+                            }
+                        },
+                        {
+                            name: 'Conversions',
+                            type: 'line',
+                            smooth: true,
+                            data: [220, 182, 191, 234, 290, 330],
+                            lineStyle: {
+                                color: 'rgba(141, 211, 199, 1)'
+                            },
+                            itemStyle: {
+                                color: 'rgba(141, 211, 199, 1)'
+                            },
+                            showSymbol: false,
+                            areaStyle: {
+                                color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                                    {
+                                        offset: 0,
+                                        color: 'rgba(141, 211, 199, 0.3)'
+                                    },
+                                    {
+                                        offset: 1,
+                                        color: 'rgba(141, 211, 199, 0.1)'
+                                    }
+                                ])
+                            }
+                        }
+                    ]
+                };
+                chart.setOption(option);
+                window.addEventListener('resize', function () {
+                    chart.resize();
+                });
+            }
+        });
+    </script>
+    <script id="faq-script">
+        document.addEventListener('DOMContentLoaded', function () {
+            const faqButtons = document.querySelectorAll('.faq-button');
+            faqButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const content = this.nextElementSibling;
+                    const icon = this.querySelector('.faq-icon');
+                    if (content.classList.contains('hidden')) {
+                        content.classList.remove('hidden');
+                        icon.classList.remove('ri-add-line');
+                        icon.classList.add('ri-subtract-line');
+                    } else {
+                        content.classList.add('hidden');
+                        icon.classList.remove('ri-subtract-line');
+                        icon.classList.add('ri-add-line');
+                    }
+                });
+            });
+        });
+    </script>
+    <script id="pricing-toggle-script">
+        document.addEventListener('DOMContentLoaded', function () {
+            const monthlyBtn = document.getElementById('monthly-btn');
+            const annualBtn = document.getElementById('annual-btn');
+            if (monthlyBtn && annualBtn) {
+                monthlyBtn.addEventListener('click', function () {
+                    monthlyBtn.classList.add('bg-primary', 'text-white');
+                    monthlyBtn.classList.remove('text-gray-300');
+                    annualBtn.classList.remove('bg-primary', 'text-white');
+                    annualBtn.classList.add('text-gray-300');
+                });
+                annualBtn.addEventListener('click', function () {
+                    annualBtn.classList.add('bg-primary', 'text-white');
+                    annualBtn.classList.remove('text-gray-300');
+                    monthlyBtn.classList.remove('bg-primary', 'text-white');
+                    monthlyBtn.classList.add('text-gray-300');
+                });
+            }
+        });
+    </script>
+    <script id="chatbot-script">
+        document.addEventListener('DOMContentLoaded', function () {
+            const chatbotButton = document.getElementById('chatbot-button');
+            const chatWindow = document.getElementById('chat-window');
+            const closeChat = document.getElementById('close-chat');
+            const chatInput = document.getElementById('chat-input');
+            const sendMessage = document.getElementById('send-message');
+            const chatMessages = document.getElementById('chat-messages');
+            function addMessage(message, isUser = false) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = isUser ? 'chat-message-user flex items-start justify-end' : 'chat-message-bot flex items-start';
+                const messageContent = `
+${isUser ? '' : `
+<div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center mr-3">
+<i class="ri-customer-service-2-line text-primary"></i>
+</div>
+`}
+<div class="bg-${isUser ? 'primary' : 'gray-800'} rounded-lg ${isUser ? 'rounded-tr-none' : 'rounded-tl-none'} p-3 max-w-[80%]">
+<p class="text-sm">${message}</p>
+</div>
+`;
+                messageDiv.innerHTML = messageContent;
+                chatMessages.appendChild(messageDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            chatbotButton.addEventListener('click', function () {
+                chatWindow.classList.remove('hidden');
+                chatbotButton.classList.add('hidden');
+                if (!chatWindow.classList.contains('hidden')) {
+                    chatInput.focus();
+                }
+            });
+            closeChat.addEventListener('click', function () {
+                chatWindow.classList.add('hidden');
+                chatbotButton.classList.remove('hidden');
+            });
+            function handleSendMessage() {
+                const message = chatInput.value.trim();
+                if (message) {
+                    addMessage(message, true);
+                    chatInput.value = '';
+                    // Simulate bot response
+                    setTimeout(() => {
+                        addMessage("Thanks for your message! Our team will get back to you soon.");
+                    }, 1000);
+                }
+            }
+            sendMessage.addEventListener('click', handleSendMessage);
+            chatInput.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    handleSendMessage();
+                }
+            });
+        });
+    </script>
+</body>
 
 </html>
