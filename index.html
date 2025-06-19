@@ -13,9 +13,14 @@
     <meta property="og:description" content="Stunning websites, thumbnails, eBooks and more..." />
     <meta property="og:image" content="https://codepandacode.netlify.app/og-image.jpg" />
     <meta property="og:url" content="https://codepandacode.netlify.app/" />
-    
+
     <title>CodePanda | Creative Digital Partner for Coders</title>
-    
+    <link rel="preload" as="font" href="/fonts/xxxx.woff2" type="font/woff2" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preload" as="font" href="/fonts/xyz.woff2" type="font/woff2" crossorigin="anonymous">
+    <link rel="preload" as="image" href="/hero.webp">
+
     <link rel="icon" href="/favicon.ico" />
     <link rel="shortcut icon" href="Round Codepanda.webp" type="image/x-icon" alt="Code Panda Favicon" loading="lazy">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,11 +28,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+
     <script>tailwind.config = { theme: { extend: { colors: { primary: '#8b5cf6', secondary: '#ec4899' }, borderRadius: { 'none': '0px', 'sm': '4px', DEFAULT: '8px', 'md': '12px', 'lg': '16px', 'xl': '20px', '2xl': '24px', '3xl': '32px', 'full': '9999px', 'button': '8px' } } } }</script>
     <style>
         :where([class^="ri-"])::before {
             content: "\f3c2";
         }
+
+        body {
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url('inter.woff2') format('woff2');
+            font-display: swap;
+        }
+
+        :focus {
+            outline: 2px solid #ffcc00;
+            outline-offset: 2px;
+        }
+
 
         @keyframes gradientFlow {
             0% {
@@ -263,14 +285,12 @@
                 opacity: 1;
             }
         }
-
-       
     </style>
 </head>
 
 <body class="bg-black text-white min-h-screen relative">
     <!-- Hero Section with Gradient Background -->
-     <meta name="Home" content="CodePanda - Your Creative Digital Partner">
+    <meta name="Home" content="CodePanda - Your Creative Digital Partner">
     <div id="home" class="relative min-h-screen overflow-hidden">
         <div class="absolute inset-0 z-0"
             style="background-image: url('https://readdy.ai/api/search-image?query=abstract%20digital%20fluid%20gradient%20wave%20with%20blue%2C%20purple%2C%20and%20magenta%20colors%20flowing%20like%20liquid%20on%20black%20background%2C%20elegant%20modern%20technology%20visualization%2C%20high%20resolution%2C%20no%20text%2C%20minimalist%20design&width=1920&height=1080&seq=hero123&orientation=landscape'); background-size: cover; background-position: center;">
@@ -355,7 +375,7 @@
         </div>
     </div>
     <!-- About Section -->
-     <meta name="About us" content="CodePanda - About Us">
+    <meta name="About us" content="CodePanda - About Us">
     <section class="py-20 px-6 bg-gray-950">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
@@ -543,7 +563,7 @@
             </div>
         </div>
     </section>
-    <script id="navigation-script">
+    <script id="navigation-script" defer>
         document.addEventListener('DOMContentLoaded', function () {
             const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(link => {
@@ -561,7 +581,7 @@
             });
         });
     </script>
-    <script id="stats-animation">
+    <script id="stats-animation" defer>
         document.addEventListener('DOMContentLoaded', function () {
             const stats = document.querySelectorAll('.stat-number');
             function animateNumber(element, target) {
@@ -767,7 +787,7 @@
             </div>
         </div>
     </section>
-    <script id="navigation-script">
+    <script id="navigation-script" defer>
         document.addEventListener('DOMContentLoaded', function () {
             const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(link => {
@@ -785,7 +805,7 @@
             });
         });
     </script>
-    <script id="stats-animation">
+    <script id="stats-animation" defer>
         document.addEventListener('DOMContentLoaded', function () {
             const stats = document.querySelectorAll('.stat-number');
             function animateNumber(element, target) {
@@ -816,7 +836,7 @@
     </script>
 
     <!-- Products Section -->
-     <meta name="Products" content="CodePanda - Our Products">
+    <meta name="Products" content="CodePanda - Our Products">
     <section class="py-20 px-6 bg-black">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
@@ -909,7 +929,7 @@
             </div>
         </div>
     </section>
-    <script id="navigation-script">
+    <script id="navigation-script" defer>
         document.addEventListener('DOMContentLoaded', function () {
             const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(link => {
@@ -927,7 +947,7 @@
             });
         });
     </script>
-    <script id="stats-animation">
+    <script id="stats-animation" defer>
         document.addEventListener('DOMContentLoaded', function () {
             const stats = document.querySelectorAll('.stat-number');
             function animateNumber(element, target) {
@@ -957,7 +977,7 @@
         });
     </script>
     <!-- Contact Section -->
-     <meta name="Contact" content="CodePanda - Contact Us">
+    <meta name="Contact" content="CodePanda - Contact Us">
     <section id="about" class="py-20 px-6 bg-black">
         <div class="max-w-3xl mx-auto">
             <div class="text-center mb-16">
@@ -1040,7 +1060,7 @@
             </div>
         </div>
     </section>
-    <script id="navigation-script">
+    <script id="navigation-script" defer>
         document.addEventListener('DOMContentLoaded', function () {
             const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(link => {
@@ -1058,7 +1078,7 @@
             });
         });
     </script>
-    <script id="stats-animation">
+    <script id="stats-animation" defer>
         document.addEventListener('DOMContentLoaded', function () {
             const stats = document.querySelectorAll('.stat-number');
             function animateNumber(element, target) {
@@ -1136,7 +1156,7 @@
         </div>
     </section>
     <!-- Footer -->
-     <meta name="Footer" content="CodePanda - Footer">
+    <meta name="Footer" content="CodePanda - Footer">
     <footer id="contact" class="bg-gray-950 py-16 px-6">
         <div class="max-w-7xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-5 gap-8 mb-12">
@@ -1238,7 +1258,7 @@
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
-    <script id="chart-script">
+    <script id="chart-script" defer>
         document.addEventListener('DOMContentLoaded', function () {
             const chartContainer = document.getElementById('analytics-chart');
             if (chartContainer) {
@@ -1346,7 +1366,7 @@
             }
         });
     </script>
-    <script id="faq-script">
+    <script id="faq-script" defer>
         document.addEventListener('DOMContentLoaded', function () {
             const faqButtons = document.querySelectorAll('.faq-button');
             faqButtons.forEach(button => {
@@ -1366,7 +1386,7 @@
             });
         });
     </script>
-    <script id="pricing-toggle-script">
+    <script id="pricing-toggle-script" defer>
         document.addEventListener('DOMContentLoaded', function () {
             const monthlyBtn = document.getElementById('monthly-btn');
             const annualBtn = document.getElementById('annual-btn');
@@ -1386,60 +1406,21 @@
             }
         });
     </script>
-    <script id="chatbot-script">
+    <script id="navigation-script" defer>
         document.addEventListener('DOMContentLoaded', function () {
-            const chatbotButton = document.getElementById('chatbot-button');
-            const chatWindow = document.getElementById('chat-window');
-            const closeChat = document.getElementById('close-chat');
-            const chatInput = document.getElementById('chat-input');
-            const sendMessage = document.getElementById('send-message');
-            const chatMessages = document.getElementById('chat-messages');
-            function addMessage(message, isUser = false) {
-                const messageDiv = document.createElement('div');
-                messageDiv.className = isUser ? 'chat-message-user flex items-start justify-end' : 'chat-message-bot flex items-start';
-                const messageContent = `
-${isUser ? '' : `
-<div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center mr-3">
-<i class="ri-customer-service-2-line text-primary"></i>
-</div>
-`}
-<div class="bg-${isUser ? 'primary' : 'gray-800'} rounded-lg ${isUser ? 'rounded-tr-none' : 'rounded-tl-none'} p-3 max-w-[80%]">
-<p class="text-sm">${message}</p>
-</div>
-`;
-                messageDiv.innerHTML = messageContent;
-                chatMessages.appendChild(messageDiv);
-                chatMessages.scrollTop = chatMessages.scrollHeight;
-            }
-            chatbotButton.addEventListener('click', function () {
-                chatWindow.classList.remove('hidden');
-                chatbotButton.classList.add('hidden');
-                if (!chatWindow.classList.contains('hidden')) {
-                    chatInput.focus();
-                }
-            });
-            closeChat.addEventListener('click', function () {
-                chatWindow.classList.add('hidden');
-                chatbotButton.classList.remove('hidden');
-            });
-            function handleSendMessage() {
-                const message = chatInput.value.trim();
-                if (message) {
-                    addMessage(message, true);
-                    chatInput.value = '';
-                    // Simulate bot response
-                    setTimeout(() => {
-                        addMessage("Thanks for your message! Our team will get back to you soon.");
-                    }, 1000);
-                }
-            }
-            sendMessage.addEventListener('click', handleSendMessage);
-            chatInput.addEventListener('keypress', function (e) {
-                if (e.key === 'Enter') {
-                    handleSendMessage();
-                }
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetSection = document.querySelector(targetId);
+                    if (targetSection) {
+                        targetSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
             });
         });
     </script>
 </body>
+
 </html>
