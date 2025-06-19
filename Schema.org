@@ -1,0 +1,13 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "CodePanda",
+  "url": "https://codepandacode.netlify.app",
+  "logo": "https://codepandacode.netlify.app/logo.png",
+  "sameAs": [
+    "https://www.youtube.com/@codepanda_code",
+    "https://www.instagram.com/codepanda_code"
+  ]
+}
+</script>
