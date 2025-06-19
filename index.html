@@ -4,8 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Code Panda</title>
-    <link rel="shortcut icon" href="Round Codepanda.png" type="image/x-icon">
+    <meta name="description"
+        content="CodePanda: Your creative digital partner for stunning websites, eBooks, YouTube thumbnails, and more.">
+    <meta name="keywords"
+        content="HTML, CSS, JavaScript, Web Design, CodePanda, Digital Products, Frontend Development">
+    <meta name="author" content="CodePanda">
+    <meta property="og:title" content="CodePanda - Your Creative Digital Partner" />
+    <meta property="og:description" content="Stunning websites, thumbnails, eBooks and more..." />
+    <meta property="og:image" content="https://codepandacode.netlify.app/og-image.jpg" />
+    <meta property="og:url" content="https://codepandacode.netlify.app/" />
+    
+    <title>CodePanda | Creative Digital Partner for Coders</title>
+    
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="shortcut icon" href="Round Codepanda.png" type="image/x-icon" alt="Code Panda Favicon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
@@ -13,7 +25,6 @@
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
     <script>tailwind.config = { theme: { extend: { colors: { primary: '#8b5cf6', secondary: '#ec4899' }, borderRadius: { 'none': '0px', 'sm': '4px', DEFAULT: '8px', 'md': '12px', 'lg': '16px', 'xl': '20px', '2xl': '24px', '3xl': '32px', 'full': '9999px', 'button': '8px' } } } }</script>
     <style>
-        
         :where([class^="ri-"])::before {
             content: "\f3c2";
         }
@@ -78,6 +89,10 @@
             100% {
                 transform: perspective(1000px) rotateX(0) rotateY(0);
             }
+        }
+
+        body {
+            zoom: 100%;
         }
 
         .transform-3d {
