@@ -2,290 +2,330 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Basic Meta Tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description"
-        content="CodePanda: Your creative digital partner for stunning websites, eBooks, YouTube thumbnails, and more.">
+        content="CodePanda: Your creative digital partner for stunning websites, eBooks, YouTube thumbnails, and more." />
     <meta name="keywords"
-        content="HTML, CSS, JavaScript, Web Design, CodePanda, Digital Products, Frontend Development">
-    <meta name="author" content="CodePanda">
+        content="HTML, CSS, JavaScript, Web Design, CodePanda, Digital Products, Frontend Development" />
+    <meta name="author" content="CodePanda" />
+
+    <!-- Open Graph / Social Sharing -->
     <meta property="og:title" content="CodePanda - Your Creative Digital Partner" />
     <meta property="og:description" content="Stunning websites, thumbnails, eBooks and more..." />
     <meta property="og:image" content="https://codepandacode.netlify.app/og-image.jpg" />
     <meta property="og:url" content="https://codepandacode.netlify.app/" />
+    <meta name="twitter:card" content="summary_large_image" />
 
+    <!-- Title -->
     <title>CodePanda | Creative Digital Partner for Coders</title>
-    <link rel="shortcut icon" href="Round Codepanda.webp" type="image/x-icon" alt="Code Panda Favicon" loading="lazy">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-    <link rel="preload" as="image" href="/hero.webp">
-    <link rel="preload" as="font" href="/fonts/xxxx.woff2" type="font/woff2" crossorigin>
-    <link rel="preload" as="font" href="/fonts/xyz.woff2" type="font/woff2" crossorigin="anonymous">
 
-    <link rel="icon" href="/favicon.ico" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" href="Round Codepanda.webp" type="image/x-icon" alt="CodePanda Favicon" />
+
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Preload Resources -->
+    <link rel="preload" as="image" href="/hero.webp" />
+    <link rel="preload" as="font" href="/fonts/xxxx.woff2" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" as="font" href="/fonts/xyz.woff2" type="font/woff2" crossorigin="anonymous" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+
+    <!-- Icons & Styles -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet"
+        integrity="sha384-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com/3.4.16"></script>
 
-    <script>tailwind.config = { theme: { extend: { colors: { primary: '#8b5cf6', secondary: '#ec4899' }, borderRadius: { 'none': '0px', 'sm': '4px', DEFAULT: '8px', 'md': '12px', 'lg': '16px', 'xl': '20px', '2xl': '24px', '3xl': '32px', 'full': '9999px', 'button': '8px' } } } }</script>
-    <style>
-        :where([class^="ri-"])::before {
-            content: "\f3c2";
-        }
-
-        body {
-            font-display: swap;
-        }
-
-        @font-face {
-            font-family: 'Inter';
-            src: url('inter.woff2') format('woff2');
-            font-display: swap;
-        }
-
-        :focus {
-            outline: 2px solid #ffcc00;
-            outline-offset: 2px;
-        }
-
-
-        @keyframes gradientFlow {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
+    <!-- Tailwind Custom Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8b5cf6',
+                        secondary: '#ec4899'
+                    },
+                    borderRadius: {
+                        none: '0px',
+                        sm: '4px',
+                        DEFAULT: '8px',
+                        md: '12px',
+                        lg: '16px',
+                        xl: '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        full: '9999px',
+                        button: '8px'
+                    }
+                }
             }
         }
+    </script>
+</head>
 
-        @keyframes float {
+<style>
+    :where([class^="ri-"])::before {
+        content: "\f3c2";
+    }
 
-            0%,
-            100% {
-                transform: translateY(0px) rotateX(10deg) rotateY(10deg);
-            }
+    body {
+        font-display: swap;
+    }
 
-            50% {
-                transform: translateY(-20px) rotateX(-10deg) rotateY(-10deg);
-            }
+    @font-face {
+        font-family: 'Inter';
+        src: url('inter.woff2') format('woff2');
+        font-display: swap;
+    }
+
+    :focus {
+        outline: 2px solid #ffcc00;
+        outline-offset: 2px;
+    }
+
+
+    @keyframes gradientFlow {
+        0% {
+            background-position: 0% 50%;
         }
 
-        @keyframes spinIn {
-            from {
-                transform: perspective(1000px) rotateY(90deg) scale(0.8);
-                opacity: 0;
-            }
-
-            to {
-                transform: perspective(1000px) rotateY(0) scale(1);
-                opacity: 1;
-            }
+        50% {
+            background-position: 100% 50%;
         }
 
-        @keyframes rotate3d {
-            0% {
-                transform: perspective(1000px) rotateX(0) rotateY(0);
-            }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
 
-            100% {
-                transform: perspective(1000px) rotateX(360deg) rotateY(360deg);
-            }
+    @keyframes float {
+
+        0%,
+        100% {
+            transform: translateY(0px) rotateX(10deg) rotateY(10deg);
         }
 
-        @keyframes tiltHover {
-            0% {
-                transform: perspective(1000px) rotateX(0) rotateY(0);
-            }
-
-            50% {
-                transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
-            }
-
-            100% {
-                transform: perspective(1000px) rotateX(0) rotateY(0);
-            }
+        50% {
+            transform: translateY(-20px) rotateX(-10deg) rotateY(-10deg);
         }
+    }
 
-        body {
-            zoom: 100%;
-        }
-
-        .transform-3d {
-            transform-style: preserve-3d;
-            perspective: 1000px;
-        }
-
-        .hover-tilt {
-            transition: transform 0.3s ease;
-        }
-
-        .hover-tilt:hover {
-            animation: tiltHover 2s infinite;
-        }
-
-        .card-hover {
-            transition: all 0.5s ease;
-            transform-style: preserve-3d;
-        }
-
-        .card-hover:hover {
-            transform: translateY(-5px) translateZ(30px) rotateX(5deg) rotateY(5deg);
-            box-shadow: 20px 20px 40px -5px rgba(0, 0, 0, 0.2);
-        }
-
-        @keyframes tiltIn {
-            from {
-                transform: perspective(1000px) rotateX(30deg) translateY(50px);
-                opacity: 0;
-            }
-
-            to {
-                transform: perspective(1000px) rotateX(0) translateY(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes scaleUp {
-            from {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideInLeft {
-            from {
-                transform: translateX(-100px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                transform: translateX(100px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        .gradient-bg {
-            background: linear-gradient(-45deg, #5727b0, #8b5cf6, #ec4899, #3b82f6);
-            background-size: 400% 400%;
-            animation: gradientFlow 15s ease infinite;
-        }
-
-        .float-animation {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .spin-in {
+    @keyframes spinIn {
+        from {
+            transform: perspective(1000px) rotateY(90deg) scale(0.8);
             opacity: 0;
-            animation: spinIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .tilt-in {
+        to {
+            transform: perspective(1000px) rotateY(0) scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes rotate3d {
+        0% {
+            transform: perspective(1000px) rotateX(0) rotateY(0);
+        }
+
+        100% {
+            transform: perspective(1000px) rotateX(360deg) rotateY(360deg);
+        }
+    }
+
+    @keyframes tiltHover {
+        0% {
+            transform: perspective(1000px) rotateX(0) rotateY(0);
+        }
+
+        50% {
+            transform: perspective(1000px) rotateX(5deg) rotateY(5deg);
+        }
+
+        100% {
+            transform: perspective(1000px) rotateX(0) rotateY(0);
+        }
+    }
+
+    body {
+        zoom: 100%;
+    }
+
+    .transform-3d {
+        transform-style: preserve-3d;
+        perspective: 1000px;
+    }
+
+    .hover-tilt {
+        transition: transform 0.3s ease;
+    }
+
+    .hover-tilt:hover {
+        animation: tiltHover 2s infinite;
+    }
+
+    .card-hover {
+        transition: all 0.5s ease;
+        transform-style: preserve-3d;
+    }
+
+    .card-hover:hover {
+        transform: translateY(-5px) translateZ(30px) rotateX(5deg) rotateY(5deg);
+        box-shadow: 20px 20px 40px -5px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes tiltIn {
+        from {
+            transform: perspective(1000px) rotateX(30deg) translateY(50px);
             opacity: 0;
-            animation: tiltIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .scale-up {
+        to {
+            transform: perspective(1000px) rotateX(0) translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes scaleUp {
+        from {
+            transform: scale(0.8);
             opacity: 0;
-            animation: scaleUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .slide-in-left {
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideInLeft {
+        from {
+            transform: translateX(-100px);
             opacity: 0;
-            animation: slideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .slide-in-right {
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideInRight {
+        from {
+            transform: translateX(100px);
             opacity: 0;
-            animation: slideInRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        .gradient-text {
-            background: linear-gradient(90deg, #8b5cf6, #ec4899);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    .gradient-bg {
+        background: linear-gradient(-45deg, #5727b0, #8b5cf6, #ec4899, #3b82f6);
+        background-size: 400% 400%;
+        animation: gradientFlow 15s ease infinite;
+    }
+
+    .float-animation {
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .spin-in {
+        opacity: 0;
+        animation: spinIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .tilt-in {
+        opacity: 0;
+        animation: tiltIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .scale-up {
+        opacity: 0;
+        animation: scaleUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .slide-in-left {
+        opacity: 0;
+        animation: slideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .slide-in-right {
+        opacity: 0;
+        animation: slideInRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .gradient-text {
+        background: linear-gradient(90deg, #8b5cf6, #ec4899);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .card-hover {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    .btn-hover {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-hover:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 15px -3px rgba(139, 92, 246, 0.3), 0 4px 6px -2px rgba(139, 92, 246, 0.2);
+    }
+
+    input:focus {
+        outline: none;
+    }
+
+    @keyframes bounce {
+
+        0%,
+        100% {
+            transform: translateY(0);
         }
 
-        .card-hover {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: scale(0.8);
+            opacity: 0;
         }
 
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
         }
 
-        .btn-hover {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        to {
+            opacity: 1;
         }
-
-        .btn-hover:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 15px -3px rgba(139, 92, 246, 0.3), 0 4px 6px -2px rgba(139, 92, 246, 0.2);
-        }
-
-        input:focus {
-            outline: none;
-        }
-
-        @keyframes bounce {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 
 <body class="bg-black text-white min-h-screen relative">
